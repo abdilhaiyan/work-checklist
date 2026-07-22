@@ -1,0 +1,15 @@
+# Don't accidentally push backups with sensitive office tasks
+*backup*.json
+work-checklist-backup-*.json
+*.local.json
+.DS_Store
+Thumbs.db
+
+# Keep main app
+!dashboard.html
+!index.html
+!README.md
+!README-Setup-Guide.md
+!GITHUB_SETUP.md
+!*.bat
+!.gitignore
