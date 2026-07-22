@@ -3,82 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Work Checklist - Daily 9AM</title>
+<title>Work Checklist - 9AM Sync (Firebase)</title>
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiV29yayBDaGVja2xpc3QiLCJzaG9ydF9uYW1lIjoiQ2hlY2tsaXN0Iiwic3RhcnRfdXJsIjoiLi8iLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImJhY2tncm91bmRfY29sb3IiOiIjZjhmYWZjIiwidGhlbWVfY29sb3IiOiIjMGYxNzJhIn0=">
 <style>
-:root{
-  --bg:#f8fafc; --card:#ffffff; --text:#0f172a; --muted:#64748b;
-  --border:#e2e8f0; --ring:#3b82f6;
-  --red:#ef4444; --red-bg:#fef2f2; --red-border:#fecaca;
-  --amber:#f59e0b; --amber-bg:#fffbeb; --amber-border:#fde68a;
-  --green:#10b981; --green-bg:#ecfdf5; --green-border:#a7f3d0;
-  --blue:#3b82f6; --blue-bg:#eff6ff; --blue-border:#bfdbfe;
-  --purple:#8b5cf6; --orange:#f97316;
-}
+:root{--bg:#f8fafc;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--ring:#3b82f6;--red:#ef4444;--red-bg:#fef2f2;--red-border:#fecaca;--amber:#f59e0b;--blue:#3b82f6;--blue-bg:#eff6ff;--blue-border:#bfdbfe}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
 .container{max-width:1120px;margin:0 auto;padding:20px 20px 80px}
 header{background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#334155 100%);color:white;border-radius:20px;padding:28px 28px 22px;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.15)}
 header::after{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(59,130,246,.35),transparent 70%);border-radius:50%}
 .top-row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;position:relative;z-index:1}
-.greeting h1{font-size:28px;font-weight:800;letter-spacing:-0.02em;line-height:1.1}
-.greeting p{opacity:.85;margin-top:6px;font-size:14px}
+.greeting h1{font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.greeting p{opacity:.85;margin-top:6px;font-size:13px}
 .time-badge{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 14px;min-width:200px}
-.time-badge .clock{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums}
-.time-badge .sub{font-size:12px;opacity:.75;margin-top:2px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px;position:relative;z-index:1}
+.time-badge .clock{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px;position:relative;z-index:1}
 @media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
 .stat-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:12px 14px}
 .stat-card .label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.7}
 .stat-card .value{font-size:22px;font-weight:800;margin-top:2px}
-.stat-card.overdue .value{color:#fca5a5}
-.stat-card.today .value{color:#93c5fd}
-.stat-card.week .value{color:#fcd34d}
-.stat-card.done .value{color:#6ee7b7}
-
 .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.add-card{padding:18px;margin-top:18px}
-.add-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.add-header h2{font-size:16px;font-weight:700}
-.tip{font-size:12px;color:var(--muted);background:#f1f5f9;padding:6px 10px;border-radius:8px}
-.form-grid{display:grid;grid-template-columns:1.6fr .9fr .9fr .9fr;gap:10px}
-@media(max-width:900px){.form-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:580px){.form-grid{grid-template-columns:1fr}}
-.input, .select, .textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:14px;background:white;transition:.15s}
-.input:focus, .select:focus, .textarea:focus{outline:none;border-color:var(--ring);box-shadow:0 0 0 3px rgba(59,130,246,.15)}
-.textarea{resize:vertical;min-height:42px}
-.form-row-2{display:grid;grid-template-columns:1fr 120px;gap:10px;margin-top:10px}
-@media(max-width:580px){.form-row-2{grid-template-columns:1fr}}
+.setup-card{padding:22px;margin-top:18px;border:2px dashed #f59e0b;background:#fffbeb}
+.setup-card h2{font-size:18px;margin-bottom:8px}
+.setup-card ol{margin-left:18px;font-size:13px;line-height:1.6}
+.setup-card code{background:#0f172a;color:#e2e8f0;padding:2px 6px;border-radius:6px;font-size:12px}
+.auth-card{padding:20px;margin-top:18px}
+.auth-card h2{font-size:16px;font-weight:800;margin-bottom:12px}
+.auth-row{display:flex;gap:10px;flex-wrap:wrap}
+.input,.select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:14px;background:white;transition:.15s}
+.input:focus,.select:focus{outline:none;border-color:var(--ring);box-shadow:0 0 0 3px rgba(59,130,246,.15)}
 .btn{border:none;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:600;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:6px;justify-content:center}
 .btn-primary{background:#0f172a;color:white}
 .btn-primary:hover{background:#1e293b;transform:translateY(-1px)}
 .btn-ghost{background:#f1f5f9;color:var(--text)}
 .btn-ghost:hover{background:#e2e8f0}
 .btn-small{padding:6px 10px;font-size:12px;border-radius:8px}
-.btn-danger{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border)}
-.btn-danger:hover{background:#fee2e2}
-
+.add-card{padding:18px;margin-top:18px}
+.form-grid{display:grid;grid-template-columns:1.6fr .9fr .9fr .9fr;gap:10px}
+@media(max-width:900px){.form-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.form-grid{grid-template-columns:1fr}}
+.form-row-2{display:grid;grid-template-columns:1fr 120px;gap:10px;margin-top:10px}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin:18px 2px 6px}
 .filter-pill{padding:7px 12px;border-radius:999px;border:1px solid var(--border);background:white;font-size:12px;font-weight:600;cursor:pointer}
 .filter-pill.active{background:#0f172a;color:white;border-color:#0f172a}
-
 .main-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:14px}
 @media(max-width:980px){.main-grid{grid-template-columns:1fr}}
 .section{padding:14px}
 .section-head{display:flex;justify-content:space-between;align-items:center;padding:8px 6px 12px;border-bottom:1px dashed var(--border);margin-bottom:10px}
-.section-head h3{font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:8px}
+.section-head h3{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;display:flex;align-items:center;gap:8px}
 .count{background:#f1f5f9;border:1px solid var(--border);padding:2px 8px;border-radius:999px;font-size:11px}
 .task-list{display:flex;flex-direction:column;gap:8px}
 .task{display:flex;gap:10px;padding:12px 12px;border:1px solid var(--border);border-radius:12px;background:white;transition:.15s;position:relative}
 .task:hover{border-color:#cbd5e1;box-shadow:0 4px 12px rgba(0,0,0,.06);transform:translateY(-1px)}
 .task.completed{opacity:.6;background:#f8fafc}
 .task.completed .task-title{text-decoration:line-through}
-.task-left{display:flex;align-items:flex-start;padding-top:2px}
-.check{width:20px;height:20px;border:2px solid #cbd5e1;border-radius:6px;display:grid;place-items:center;cursor:pointer;flex-shrink:0;transition:.15s;background:white}
+.check{width:20px;height:20px;border:2px solid #cbd5e1;border-radius:6px;display:grid;place-items:center;cursor:pointer;flex-shrink:0;background:white}
 .check.checked{background:#0f172a;border-color:#0f172a;color:white}
 .task-body{flex:1;min-width:0}
 .task-title{font-size:14px;font-weight:600;line-height:1.3;word-break:break-word}
-.task-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;align-items:center}
-.badge{font-size:10px;font-weight:700;padding:3px 7px;border-radius:999px;border:1px solid;letter-spacing:.02em;white-space:nowrap}
+.task-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.badge{font-size:10px;font-weight:700;padding:3px 7px;border-radius:999px;border:1px solid;white-space:nowrap}
 .badge-cat-Emails{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
 .badge-cat-Meetings{background:#f5f3ff;color:#6d28d9;border-color:#ddd6fe}
 .badge-cat-Reports{background:#fff7ed;color:#c2410c;border-color:#fed7aa}
@@ -91,72 +75,101 @@ header::after{content:'';position:absolute;top:-50px;right:-50px;width:200px;hei
 .badge-due.overdue{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
 .badge-due.today2{background:var(--blue-bg);color:#1d4ed8;border-color:var(--blue-border)}
 .notes{font-size:12px;color:var(--muted);margin-top:6px;background:#f8fafc;border:1px dashed var(--border);padding:6px 8px;border-radius:8px;word-break:break-word}
-.notes a{color:var(--blue);text-decoration:underline}
 .task-actions{display:flex;gap:4px;align-items:flex-start}
 .icon-btn{width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:white;display:grid;place-items:center;cursor:pointer;font-size:12px}
-.icon-btn:hover{background:#f1f5f9}
 .empty{padding:22px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--border);border-radius:12px;background:#fbfdff}
 .bar{height:6px;background:#f1f5f9;border-radius:999px;overflow:hidden;margin-top:12px}
 .bar-fill{height:100%;background:#0f172a;transition:width .4s}
-.iphone-tip{margin-top:16px;padding:14px;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1px solid #dbeafe;border-radius:14px}
-.iphone-tip h4{font-size:13px;font-weight:800;margin-bottom:4px}
-.iphone-tip p{font-size:12px;color:#475569;line-height:1.5}
-.footer-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.divider{height:1px;background:var(--border);margin:14px 0}
-.weekend-note{background:#fffbeb;border:1px solid #fde68a;color:#92400e;padding:10px 12px;border-radius:10px;font-size:12px;margin-top:12px}
+.sync-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:5px 10px;border-radius:999px;font-weight:700}
+.sync-badge.offline{background:#fef2f2;border-color:#fecaca;color:#991b1b}
+.user-box{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
+.user-box .email{font-size:12px;opacity:.9}
+code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
 </style>
 </head>
 <body>
 <div class="container">
-  <header>
-    <div class="top-row">
-      <div class="greeting">
-        <h1 id="greetingText">Good morning, time to check what's due.</h1>
-        <p id="dateText">Loading date…</p>
-      </div>
-      <div class="time-badge">
-        <div class="clock" id="clock">09:00 AM</div>
-        <div class="sub">Weekday Check • Mon–Fri • Next check: <span id="nextCheck">Today 9 AM</span></div>
+<header>
+  <div class="top-row">
+    <div class="greeting">
+      <h1 id="greetingText">Work Checklist — Sync Version</h1>
+      <p id="dateText">Loading…</p>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <span id="syncStatus" class="sync-badge offline">● Connecting...</span>
+        <span class="sync-badge" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:white">Firebase FREE sync • PC ↔ iPhone</span>
       </div>
     </div>
-    <div class="stats">
-      <div class="stat-card overdue"><div class="label">🔴 Overdue</div><div class="value" id="statOverdue">0</div></div>
-      <div class="stat-card today"><div class="label">🔵 Due Today</div><div class="value" id="statToday">0</div></div>
-      <div class="stat-card week"><div class="label">🟡 This Week</div><div class="value" id="statWeek">0</div></div>
-      <div class="stat-card done"><div class="label">✅ Completed</div><div class="value" id="statDone">0</div></div>
+    <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end;position:relative;z-index:1">
+      <div class="time-badge"><div class="clock" id="clock">09:00 AM</div><div class="sub" style="font-size:12px;opacity:.8">Mon–Fri 9AM auto-open • <span id="nextCheck">Today</span></div></div>
+      <div id="userBox" class="user-box" style="display:none"><div><div id="userEmail" class="email"></div><div style="font-size:10px;opacity:.7">Synced across all devices</div></div><button id="btnLogout" class="btn btn-ghost btn-small">Logout</button></div>
     </div>
-  </header>
+  </div>
+  <div class="stats">
+    <div class="stat-card"><div class="label">🔴 Overdue</div><div class="value" id="statOverdue">0</div></div>
+    <div class="stat-card"><div class="label">🔵 Due Today</div><div class="value" id="statToday">0</div></div>
+    <div class="stat-card"><div class="label">🟡 This Week</div><div class="value" id="statWeek">0</div></div>
+    <div class="stat-card"><div class="label">✅ Completed Today</div><div class="value" id="statDone">0</div></div>
+  </div>
+</header>
 
+<!-- SETUP REQUIRED -->
+<div id="setupNeeded" class="card setup-card" style="display:none">
+  <h2>⚙️ Firebase Setup Needed — 2 Minutes, FREE</h2>
+  <p style="font-size:13px;margin:8px 0">This sync version needs your FREE Firebase project to store data securely. Data is NOT stored in GitHub — only in your private Firebase.</p>
+  <ol>
+    <li>Go to <a href="https://console.firebase.google.com" target="_blank">console.firebase.google.com</a> → <b>Add Project</b> → Name: <code>work-checklist</code> → Disable Google Analytics (optional) → Create</li>
+    <li>After created: Left menu → <b>Build > Authentication</b> → Get Started → <b>Email/Password</b> → Enable → Save. Also enable <b>Google</b> provider if you want one-click login.</li>
+    <li>Left menu → <b>Build > Firestore Database</b> → Create Database → Start in <b>Test mode</b> (or Production) → Location: <code>asia-southeast1 (Singapore)</code> for MY → Enable</li>
+    <li>Top right → Project Settings (gear icon) → <b>General</b> tab → Your apps → Web app <code>&lt;/&gt;</code> → Register app: <code>work-checklist</code> → Copy the <code>firebaseConfig</code> object</li>
+    <li><b>Paste that config below</b> in this file: open <code class="inline">index.html</code> in Notepad/VS Code, find <code class="inline">const firebaseConfig = {</code> and replace the placeholder values. Then <b>git commit + push</b> again.</li>
+    <li>Optional but secure: In Firestore → <b>Rules</b> tab, paste rules from <code class="inline">firestore.rules</code> file in this repo, then Publish.</li>
+  </ol>
+  <div style="margin-top:12px;padding:10px;background:white;border-radius:10px;border:1px solid #fde68a;font-size:12px">
+    <b>Where is your current firebaseConfig in this file?</b><br>
+    Search for: <code>apiKey: "REPLACE_ME"</code> around line 220. Replace entire object with your real config from Firebase Console.<br>
+    After push, refresh this page - setup warning will disappear.
+  </div>
+  <div style="margin-top:10px;font-size:11px;color:#92400e">Cost: $0 forever for personal use (1GB storage, 50k reads/day). You are far below limits.</div>
+</div>
+
+<!-- AUTH -->
+<div id="authCard" class="card auth-card" style="display:none">
+  <h2>🔐 Login to Sync Across PC & iPhone</h2>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Use the SAME email on both Windows PC and iPhone Chrome. Then tasks auto-sync.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:520px">
+    <input id="email" class="input" placeholder="you@email.com" type="email">
+    <input id="password" class="input" placeholder="password (min 6 chars)" type="password">
+  </div>
+  <div class="auth-row" style="margin-top:12px">
+    <button id="btnLogin" class="btn btn-primary">Login</button>
+    <button id="btnSignup" class="btn btn-ghost">Create Account</button>
+    <button id="btnGoogle" class="btn btn-ghost">Sign in with Google</button>
+    <span id="authMsg" style="font-size:12px;color:var(--muted);margin-left:8px"></span>
+  </div>
+  <div style="margin-top:12px;font-size:11px;color:var(--muted)">Tip: On iPhone Chrome, open your GitHub Pages URL and login with same email → tasks appear instantly. Offline mode works too.</div>
+</div>
+
+<!-- MAIN APP -->
+<div id="mainApp" style="display:none">
   <div class="card add-card">
-    <div class="add-header">
-      <h2>+ Add New Work Task</h2>
-      <span class="tip">Tip: Keep iPhone Reminders + duplicate high-priority tasks here</span>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
+      <h2 style="font-size:15px;font-weight:800">+ Add New Work Task (Syncs to all devices)</h2>
+      <span style="font-size:11px;background:#ecfdf5;border:1px solid #a7f3d0;padding:4px 8px;border-radius:999px;color:#065f46" id="migrateHint">Have old offline tasks? <button id="btnMigrate" class="btn btn-ghost btn-small" style="padding:2px 8px">Migrate from offline</button></span>
     </div>
     <div class="form-grid">
-      <input id="inpTitle" class="input" placeholder="Task title — e.g. Send Q2 report to manager" />
-      <input id="inpDue" class="input" type="date" />
-      <select id="inpCat" class="select">
-        <option value="Emails">Emails</option>
-        <option value="Meetings">Meetings</option>
-        <option value="Reports">Reports</option>
-        <option value="Admin">Admin</option>
-        <option value="Follow-ups">Follow-ups</option>
-      </select>
-      <select id="inpPri" class="select">
-        <option value="Medium">Medium Priority</option>
-        <option value="High">🔴 High Priority</option>
-        <option value="Low">🟢 Low Priority</option>
-      </select>
+      <input id="inpTitle" class="input" placeholder="Task title — e.g. Send Q2 report to manager">
+      <input id="inpDue" class="input" type="date">
+      <select id="inpCat" class="select"><option>Emails</option><option>Meetings</option><option>Reports</option><option>Admin</option><option>Follow-ups</option></select>
+      <select id="inpPri" class="select"><option value="Medium">Medium Priority</option><option value="High">🔴 High Priority</option><option value="Low">🟢 Low Priority</option></select>
     </div>
     <div class="form-row-2">
-      <input id="inpNotes" class="input" placeholder="Notes / link / location — e.g. Zoom link, file path, client name" />
-      <button id="btnAdd" class="btn btn-primary">Add Task ⏎</button>
+      <input id="inpNotes" class="input" placeholder="Notes / link - e.g. Zoom link, client name">
+      <button id="btnAdd" class="btn btn-primary">Add & Sync ⏎</button>
     </div>
-    <div id="weekendNote" class="weekend-note" style="display:none"></div>
   </div>
 
   <div class="filters" id="filters">
-    <button class="filter-pill active" data-filter="all">All Tasks</button>
+    <button class="filter-pill active" data-filter="all">All</button>
     <button class="filter-pill" data-filter="cat:Emails">📧 Emails</button>
     <button class="filter-pill" data-filter="cat:Meetings">📅 Meetings</button>
     <button class="filter-pill" data-filter="cat:Reports">📊 Reports</button>
@@ -167,330 +180,245 @@ header::after{content:'';position:absolute;top:-50px;right:-50px;width:200px;hei
 
   <div class="main-grid">
     <div style="display:flex;flex-direction:column;gap:16px">
-      <div class="card section">
-        <div class="section-head"><h3>🔴 Overdue — Check First</h3><span class="count" id="countOverdue">0</span></div>
-        <div class="task-list" id="listOverdue"></div>
-      </div>
-      <div class="card section">
-        <div class="section-head"><h3>🔵 Due Today — 9 AM Focus</h3><span class="count" id="countToday">0</span></div>
-        <div class="task-list" id="listToday"></div>
-        <div class="bar"><div class="bar-fill" id="todayProgress" style="width:0%"></div></div>
-        <div style="font-size:11px;color:var(--muted);margin-top:6px"><span id="todayProgressText">0 of 0 completed</span> • Clear today to win the day</div>
-      </div>
-      <div class="card section">
-        <div class="section-head"><h3>🟡 Due This Week</h3><span class="count" id="countWeek">0</span></div>
-        <div class="task-list" id="listWeek"></div>
-      </div>
+      <div class="card section"><div class="section-head"><h3>🔴 Overdue</h3><span class="count" id="countOverdue">0</span></div><div class="task-list" id="listOverdue"></div></div>
+      <div class="card section"><div class="section-head"><h3>🔵 Due Today — 9AM Focus</h3><span class="count" id="countToday">0</span></div><div class="task-list" id="listToday"></div><div class="bar"><div class="bar-fill" id="todayProgress" style="width:0%"></div></div><div style="font-size:11px;color:var(--muted);margin-top:6px"><span id="todayProgressText"></span></div></div>
+      <div class="card section"><div class="section-head"><h3>🟡 This Week</h3><span class="count" id="countWeek">0</span></div><div class="task-list" id="listWeek"></div></div>
     </div>
-
     <div style="display:flex;flex-direction:column;gap:16px">
-      <div class="card section">
-        <div class="section-head"><h3>📅 Upcoming / Later</h3><span class="count" id="countUpcoming">0</span></div>
-        <div class="task-list" id="listUpcoming"></div>
-      </div>
-      <div class="card section">
-        <div class="section-head"><h3>✅ Completed Today & This Week</h3><span class="count" id="countDone">0</span></div>
-        <div class="task-list" id="listDone"></div>
-        <div class="footer-actions">
-          <button class="btn btn-ghost btn-small" id="btnClearDone">Clear Completed</button>
-          <button class="btn btn-ghost btn-small" id="btnExport">Export Backup</button>
-          <label class="btn btn-ghost btn-small" style="cursor:pointer"><input type="file" id="fileImport" accept=".json" style="display:none"> Import Backup</label>
+      <div class="card section"><div class="section-head"><h3>📅 Upcoming / Later</h3><span class="count" id="countUpcoming">0</span></div><div class="task-list" id="listUpcoming"></div></div>
+      <div class="card section"><div class="section-head"><h3>✅ Completed</h3><span class="count" id="countDone">0</span></div><div class="task-list" id="listDone"></div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+          <button id="btnClearDone" class="btn btn-ghost btn-small">Clear Completed (cloud)</button>
+          <button id="btnExport" class="btn btn-ghost btn-small">Export JSON Backup</button>
         </div>
       </div>
-      <div class="iphone-tip">
-        <h4>📱 iPhone + Windows Workflow (Your Setup)</h4>
-        <p>You said you use Apple Reminders on iPhone and Windows PC at work. Since Apple Reminders don't fully sync to Windows unless you install iCloud for Windows:<br><br>
-        <b>Recommended flow:</b> 1) Keep quick capture on iPhone Reminders. 2) Every morning at 9 AM, open this Dashboard (auto-opens) and quick-add your Top 3-5 priorities here with due dates. 3) Check due status here — Overdue / Today / This Week is automatic.<br><br>
-        If you install <b>iCloud for Windows</b> and enable Reminders, you can also open <a href="https://www.icloud.com/reminders" target="_blank">iCloud.com/reminders</a> in a tab next to this dashboard to manually copy.</p>
+      <div class="card section" style="background:linear-gradient(135deg,#eff6ff,#f5f3ff);border-color:#bfdbfe">
+        <h4 style="font-size:13px;font-weight:800">Where is data stored now? (You asked)</h4>
+        <p style="font-size:12px;line-height:1.6;margin-top:6px;color:#334155">
+          <b>Now with Firebase Sync:</b> Data stored in <b>Firebase Firestore</b> cloud (your private project in Singapore region). <b>NOT in GitHub.</b> GitHub only hosts the HTML file.<br><br>
+          <b>Sync:</b> Windows Chrome + iPhone Chrome (or Safari) → both login with same email → same Firestore → tasks sync instantly via onSnapshot listener.<br><br>
+          <b>Offline:</b> Works offline too - Firestore caches in IndexedDB. When online, syncs.<br><br>
+          <b>Old offline version?</b> Still available as <code class="inline">dashboard-offline-backup.html</code> using localStorage in this repo.
+        </p>
       </div>
     </div>
   </div>
-
-  <div class="divider"></div>
-  <div style="font-size:11px;color:var(--muted);text-align:center">Work Checklist v1.0 • Auto-open Mon-Fri 9AM • Offline • Data saved locally on this PC • Pro tip: Bookmark this file & set Task Scheduler per README</div>
 </div>
 
-<script>
-const LS_KEY='workChecklistTasksV2';
-let tasks = JSON.parse(localStorage.getItem(LS_KEY)||'[]');
-let activeFilter='all';
+<div style="margin-top:24px;font-size:11px;color:var(--muted);text-align:center">Work Checklist Firebase Sync • Free Tier: 50k reads/day • Your usage ~100/day • Hosted on GitHub Pages • 9AM Mon-Fri auto-open</div>
+</div>
 
-function uid(){return Math.random().toString(36).slice(2,9)}
-function todayStr(){const d=new Date(); d.setHours(0,0,0,0); return toISO(d)}
-function toISO(d){return d.toISOString().slice(0,10)}
+<script type="module">
+// ================= FIREBASE CONFIG - REPLACE THIS =================
+// Get this from Firebase Console > Project Settings > General > Your apps > Web
+const firebaseConfig = {
+  apiKey: "REPLACE_ME",
+  authDomain: "REPLACE_ME.firebaseapp.com",
+  projectId: "REPLACE_ME",
+  storageBucket: "REPLACE_ME.appspot.com",
+  messagingSenderId: "REPLACE_ME",
+  appId: "REPLACE_ME"
+};
+// ================= END CONFIG =================
+
+const isConfigured = firebaseConfig.apiKey !== "REPLACE_ME" && firebaseConfig.apiKey.includes("AIza");
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, where, enableIndexedDbPersistence, serverTimestamp, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+let app, auth, db, user=null, tasks=[], unsub=null, activeFilter='all';
+
+function todayStr(){const d=new Date(); d.setHours(0,0,0,0); return d.toISOString().slice(0,10)}
 function parseISO(s){const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d)}
-function isSameDay(a,b){return a===b}
-function addDays(iso,n){let d=parseISO(iso); d.setDate(d.getDate()+n); return toISO(d)}
+function addDays(iso,n){let d=parseISO(iso); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10)}
+function priOrder(t){return {High:0,Medium:1,Low:2}[t.priority]||1}
+
+function updateHeader(){
+  const now=new Date();
+  const opts={weekday:'long',year:'numeric',month:'long',day:'numeric'};
+  document.getElementById('dateText').textContent = now.toLocaleDateString(undefined,opts) + (now.getDay()===0||now.getDay()===6?' • Weekend - no auto check':' • Weekday - 9AM check active');
+  document.getElementById('clock').textContent=now.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
+  const next=new Date(); next.setHours(9,0,0,0); if(now>next || now.getDay()===0 || now.getDay()===6){ do{next.setDate(next.getDate()+1)}while(next.getDay()===0||next.getDay()===6) }
+  document.getElementById('nextCheck').textContent=next.toLocaleString(undefined,{weekday:'short',hour:'2-digit',minute:'2-digit'});
+}
+setInterval(updateHeader,15000); updateHeader();
+document.getElementById('inpDue').value=todayStr();
 
 function getBuckets(){
-  const tStr = todayStr();
-  const today = parseISO(tStr);
-  const dayOfWeek = today.getDay(); // 0 sun
-  // This week = Mon-Sun? Use next 7 days for simplicity, but show Mon-Fri focus
-  const weekEnd = addDays(tStr, 7 - dayOfWeek + 6); // sunday this week? Actually compute Sunday
-  // Simpler: week = today + 6 days
-  const weekEndSimple = addDays(tStr, 6);
-  
-  const overdue=[], dueToday=[], thisWeek=[], upcoming=[], completed=[];
-  for(let task of tasks){
-    if(task.completed){ completed.push(task); continue; }
-    if(!task.dueDate){ upcoming.push(task); continue; }
-    if(task.dueDate < tStr){ overdue.push(task); }
-    else if(task.dueDate === tStr){ dueToday.push(task); }
-    else if(task.dueDate <= weekEndSimple){ thisWeek.push(task); }
-    else { upcoming.push(task); }
+  const tStr=todayStr();
+  const overdue=[],dueToday=[],thisWeek=[],upcoming=[],completed=[];
+  for(let t of tasks){
+    if(t.completed){completed.push(t);continue}
+    if(!t.dueDate){upcoming.push(t);continue}
+    if(t.dueDate < tStr) overdue.push(t);
+    else if(t.dueDate===tStr) dueToday.push(t);
+    else if(t.dueDate <= addDays(tStr,6)) thisWeek.push(t);
+    else upcoming.push(t);
   }
-  // sort
   overdue.sort((a,b)=> a.dueDate.localeCompare(b.dueDate) || priOrder(a)-priOrder(b));
   dueToday.sort((a,b)=> priOrder(a)-priOrder(b));
   thisWeek.sort((a,b)=> a.dueDate.localeCompare(b.dueDate));
   upcoming.sort((a,b)=> (a.dueDate||'9999').localeCompare(b.dueDate||'9999'));
-  completed.sort((a,b)=> (b.completedAt||'').localeCompare(a.completedAt||''));
+  completed.sort((a,b)=> (b.completedAt?.seconds||0)-(a.completedAt?.seconds||0));
   return {overdue,dueToday,thisWeek,upcoming,completed,tStr};
 }
-function priOrder(t){return {High:0,Medium:1,Low:2}[t.priority]||1}
-
-function save(){localStorage.setItem(LS_KEY,JSON.stringify(tasks)); render();}
-
 function render(){
-  const {overdue,dueToday,thisWeek,upcoming,completed,tStr} = getBuckets();
-  const filtered = (list)=> list.filter(t=>{
+  const {overdue,dueToday,thisWeek,upcoming,completed,tStr}=getBuckets();
+  const filtered = list=> list.filter(t=>{
     if(activeFilter==='all') return true;
     if(activeFilter.startsWith('cat:')) return t.category===activeFilter.split(':')[1];
     if(activeFilter.startsWith('pri:')) return t.priority===activeFilter.split(':')[1];
     return true;
   });
-  // stats
-  const totalOverdue = overdue.length;
-  const totalToday = dueToday.length;
-  const totalWeek = thisWeek.length;
   const completedToday = completed.filter(c=>{
-    const cDate = (c.completedAt||'').slice(0,10);
-    return cDate===tStr;
+    if(!c.completedAt) return false;
+    const d=c.completedAt.toDate ? c.completedAt.toDate().toISOString().slice(0,10) : (c.completedAt||'').slice(0,10);
+    return d===tStr;
   }).length;
-  document.getElementById('statOverdue').textContent = totalOverdue;
-  document.getElementById('statToday').textContent = totalToday;
-  document.getElementById('statWeek').textContent = totalWeek;
-  document.getElementById('statDone').textContent = completedToday;
+  document.getElementById('statOverdue').textContent=overdue.length;
+  document.getElementById('statToday').textContent=dueToday.length;
+  document.getElementById('statWeek').textContent=thisWeek.length;
+  document.getElementById('statDone').textContent=completedToday;
+  document.getElementById('countOverdue').textContent=filtered(overdue).length;
+  document.getElementById('countToday').textContent=filtered(dueToday).length;
+  document.getElementById('countWeek').textContent=filtered(thisWeek).length;
+  document.getElementById('countUpcoming').textContent=filtered(upcoming).length;
+  document.getElementById('countDone').textContent=completed.length;
+  const totalAttempt=dueToday.length+overdue.length+completedToday;
+  const pct=totalAttempt?Math.round(completedToday/totalAttempt*100):(dueToday.length===0&&overdue.length===0?100:0);
+  document.getElementById('todayProgress').style.width=pct+'%';
+  document.getElementById('todayProgressText').textContent=`${completedToday} completed today • ${pct}% clear`;
 
-  // counts
-  document.getElementById('countOverdue').textContent = filtered(overdue).length;
-  document.getElementById('countToday').textContent = filtered(dueToday).length;
-  document.getElementById('countWeek').textContent = filtered(thisWeek).length;
-  document.getElementById('countUpcoming').textContent = filtered(upcoming).length;
-  document.getElementById('countDone').textContent = completed.length;
-
-  // progress today
-  const todayAll = dueToday.length + overdue.length;
-  const doneForTodayCalc = completed.filter(c=>{
-    const d=(c.completedAt||'').slice(0,10);
-    return d===tStr && (c._originalDue===tStr || c._wasOverdue);
-  }).length; // rough
-  // Simpler progress: based on today bucket only completed today vs total today+overdue at start? Use today's completed / (today+overdue+todayCompleted)
-  const totalAttempt = dueToday.length + overdue.length + completedToday;
-  const pct = totalAttempt? Math.round((completedToday/totalAttempt)*100) : (dueToday.length===0 && overdue.length===0 ? 100 : 0);
-  document.getElementById('todayProgress').style.width = pct+'%';
-  document.getElementById('todayProgressText').textContent = `${completedToday} completed today • ${pct}% clear`;
-
-  // lists
-  document.getElementById('listOverdue').innerHTML = filtered(overdue).length? filtered(overdue).map(renderTask).join('') : `<div class="empty">No overdue. You're clean! 🎉</div>`;
-  document.getElementById('listToday').innerHTML = filtered(dueToday).length? filtered(dueToday).map(renderTask).join('') : `<div class="empty">${totalOverdue>0? 'Focus on overdue above first.' : 'Nothing due today. Add tasks or enjoy focus time.'}</div>`;
-  document.getElementById('listWeek').innerHTML = filtered(thisWeek).length? filtered(thisWeek).map(renderTask).join('') : `<div class="empty">No tasks due this week ahead.</div>`;
-  document.getElementById('listUpcoming').innerHTML = filtered(upcoming).length? filtered(upcoming).map(renderTask).join('') : `<div class="empty">No upcoming tasks. Future is clear.</div>`;
-  document.getElementById('listDone').innerHTML = completed.slice(0,40).length? completed.slice(0,40).map(renderTask).join('') : `<div class="empty">No completed yet — check a task to see it here.</div>`;
+  document.getElementById('listOverdue').innerHTML=filtered(overdue).length?filtered(overdue).map(renderTask).join(''):`<div class="empty">No overdue 🎉</div>`;
+  document.getElementById('listToday').innerHTML=filtered(dueToday).length?filtered(dueToday).map(renderTask).join(''):`<div class="empty">${overdue.length>0?'Clear overdue first.':'Nothing due today.'}</div>`;
+  document.getElementById('listWeek').innerHTML=filtered(thisWeek).length?filtered(thisWeek).map(renderTask).join(''):`<div class="empty">No tasks this week ahead.</div>`;
+  document.getElementById('listUpcoming').innerHTML=filtered(upcoming).length?filtered(upcoming).map(renderTask).join(''):`<div class="empty">No upcoming.</div>`;
+  document.getElementById('listDone').innerHTML=completed.slice(0,50).length?completed.slice(0,50).map(renderTask).join(''):`<div class="empty">No completed yet.</div>`;
 }
-
 function renderTask(t){
-  const dueLabel = t.dueDate ? formatDue(t.dueDate) : 'No date';
-  const dueClass = getDueClass(t);
-  const notesHtml = t.notes ? `<div class="notes">${linkify(escapeHtml(t.notes))}</div>` : '';
-  return `<div class="task ${t.completed?'completed':''}" data-id="${t.id}">
-    <div class="task-left"><div class="check ${t.completed?'checked':''}" onclick="toggle('${t.id}')">${t.completed?'✓':''}</div></div>
-    <div class="task-body">
-      <div class="task-title">${escapeHtml(t.title)}</div>
-      <div class="task-meta">
-        <span class="badge badge-cat-${t.category}">${catEmoji(t.category)} ${t.category}</span>
-        <span class="badge badge-pri-${t.priority}">${t.priority}</span>
-        <span class="badge badge-due ${dueClass}">${dueLabel}</span>
-      </div>
-      ${notesHtml}
-    </div>
-    <div class="task-actions">
-      <button class="icon-btn" title="Edit" onclick="editTask('${t.id}')">✏️</button>
-      <button class="icon-btn" title="Delete" onclick="deleteTask('${t.id}')">🗑️</button>
-    </div>
-  </div>`;
+  const dueLabel=t.dueDate?formatDue(t.dueDate):'No date';
+  const dueClass=getDueClass(t);
+  const notes=t.notes?`<div class="notes">${escapeHtml(t.notes).replace(/(https?:\/\/[^\s]+)/g,'<a href="$1" target="_blank">$1</a>')}</div>`:'';
+  return `<div class="task ${t.completed?'completed':''}"><div class="check ${t.completed?'checked':''}" onclick="window.toggleTask('${t.id}',${!t.completed})">${t.completed?'✓':''}</div><div class="task-body"><div class="task-title">${escapeHtml(t.title)}</div><div class="task-meta"><span class="badge badge-cat-${t.category}">${t.category}</span><span class="badge badge-pri-${t.priority}">${t.priority}</span><span class="badge badge-due ${dueClass}">${dueLabel}</span></div>${notes}</div><div class="task-actions"><button class="icon-btn" onclick="window.deleteTask('${t.id}')">🗑️</button></div></div>`;
 }
-function catEmoji(c){return {Emails:'📧',Meetings:'📅',Reports:'📊',Admin:'🗂️','Follow-ups':'↩️'}[c]||'•'}
-function formatDue(iso){
-  if(!iso) return 'No date';
-  const t=todayStr();
-  if(iso<t) {
-    const diff = Math.round((parseISO(t)-parseISO(iso))/86400000);
-    return `Overdue ${diff}d • ${iso}`;
+function formatDue(iso){const t=todayStr(); if(!iso) return 'No date'; if(iso<t){const diff=Math.round((parseISO(t)-parseISO(iso))/86400000);return `Overdue ${diff}d • ${iso}`} if(iso===t) return `Due Today • ${iso}`; const diff=Math.round((parseISO(iso)-parseISO(t))/86400000); if(diff===1) return `Due Tomorrow • ${iso}`; if(diff<=7) return `Due in ${diff}d • ${iso}`; return `Due ${iso}`;}
+function getDueClass(t){if(t.completed) return ''; if(!t.dueDate) return ''; const today=todayStr(); if(t.dueDate<today) return 'overdue'; if(t.dueDate===today) return 'today2'; return '';}
+function escapeHtml(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+async function startApp(){
+  if(!isConfigured){
+    document.getElementById('setupNeeded').style.display='block';
+    document.getElementById('authCard').style.display='none';
+    document.getElementById('mainApp').style.display='none';
+    document.getElementById('syncStatus').textContent='● Setup Firebase first';
+    document.getElementById('syncStatus').className='sync-badge offline';
+    return;
   }
-  if(iso===t) return `Due Today • ${iso}`;
-  const diff = Math.round((parseISO(iso)-parseISO(t))/86400000);
-  if(diff===1) return `Due Tomorrow • ${iso}`;
-  if(diff<=7) return `Due in ${diff}d • ${iso}`;
-  return `Due ${iso}`;
-}
-function getDueClass(t){
-  if(t.completed) return '';
-  if(!t.dueDate) return '';
-  const today=todayStr();
-  if(t.dueDate < today) return 'overdue';
-  if(t.dueDate===today) return 'today2';
-  return '';
-}
-function escapeHtml(s){return (s||'').replace(/[&<>"']/g,m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function linkify(s){return s.replace(/(https?:\/\/[^\s]+)/g,'<a href="$1" target="_blank">$1</a>')}
-
-function getNextCheck(){
-  const now=new Date();
-  const day=now.getDay();
-  let next=new Date();
-  next.setHours(9,0,0,0);
-  if(now>next || day===0 || day===6){
-    // move to next weekday
-    do{ next.setDate(next.getDate()+1); }while(next.getDay()===0 || next.getDay()===6);
-  }
-  return next;
-}
-
-function updateHeader(){
-  const now=new Date();
-  const opts={weekday:'long',year:'numeric',month:'long',day:'numeric'};
-  const dateStr=now.toLocaleDateString(undefined,opts);
-  const isWeekend=now.getDay()===0||now.getDay()===6;
-  const dayName=now.toLocaleDateString(undefined,{weekday:'long'});
-  document.getElementById('dateText').textContent = `${dateStr} • ${isWeekend?'Weekend - No 9AM check required':'Weekday - 9AM check active'}`;
-  const h=now.getHours();
-  let greet='Good morning';
-  if(h>=12 && h<17) greet='Good afternoon';
-  if(h>=17) greet='Good evening';
-  if(isWeekend) greet=`Happy ${dayName} — weekend mode`;
-  else if(h<12) greet=`Good morning, time for your 9 AM check`;
-  document.getElementById('greetingText').textContent=greet;
-  document.getElementById('clock').textContent=now.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
-  const next=getNextCheck();
-  const nextStr=next.toLocaleDateString(undefined,{weekday:'short',hour:'2-digit',minute:'2-digit'});
-  document.getElementById('nextCheck').textContent=nextStr;
-
-  // weekend note
-  const wn=document.getElementById('weekendNote');
-  if(isWeekend){
-    wn.style.display='block';
-    wn.textContent=`It's ${dayName} — you set this to skip weekends. No 9 AM auto check today. Use this to plan next week if you want.`;
-  }else{
-    const hour=now.getHours();
-    if(hour<9){
-      wn.style.display='block';
-      wn.textContent=`Next 9 AM check is today in ${9-hour} hour(s). Review overdue first, then today's list.`;
-    }else if(hour===9){
-      wn.style.display='block';
-      wn.style.background='#ecfdf5'; wn.style.borderColor='#a7f3d0';
-      wn.textContent=`⏰ It's 9 AM — your official check time! Focus on 🔴 Overdue first, then 🔵 Due Today.`;
-    }else{
-      wn.style.display='none';
-    }
+  try{
+    app=initializeApp(firebaseConfig); auth=getAuth(app); db=getFirestore(app);
+    try{ await enableIndexedDbPersistence(db); document.getElementById('syncStatus').textContent='● Offline cache enabled'; }catch(e){ console.warn(e) }
+    onAuthStateChanged(auth, (u)=>{
+      user=u;
+      if(!u){
+        document.getElementById('authCard').style.display='block';
+        document.getElementById('mainApp').style.display='none';
+        document.getElementById('userBox').style.display='none';
+        document.getElementById('syncStatus').textContent='● Not logged in';
+        document.getElementById('syncStatus').className='sync-badge offline';
+        if(unsub){unsub(); unsub=null}
+      }else{
+        document.getElementById('authCard').style.display='none';
+        document.getElementById('mainApp').style.display='block';
+        document.getElementById('userBox').style.display='flex';
+        document.getElementById('userEmail').textContent=u.email||'User: '+u.uid.slice(0,8);
+        document.getElementById('syncStatus').textContent='● Synced • '+u.email;
+        document.getElementById('syncStatus').className='sync-badge';
+        listenTasks();
+      }
+    });
+  }catch(err){
+    alert('Firebase init error: '+err.message+'\nCheck firebaseConfig');
+    console.error(err);
   }
 }
-setInterval(updateHeader, 1000*15);
-updateHeader();
+function listenTasks(){
+  if(!user) return;
+  if(unsub) unsub();
+  const q=query(collection(db,'tasks'), where('owner','==',user.uid));
+  unsub=onSnapshot(q, (snap)=>{
+    tasks=snap.docs.map(d=>({id:d.id,...d.data()}));
+    render();
+    document.getElementById('syncStatus').textContent='● Live Synced • '+(user.email||'');
+  }, (err)=>{
+    console.error(err);
+    document.getElementById('syncStatus').textContent='● Sync error: '+err.message;
+    document.getElementById('syncStatus').className='sync-badge offline';
+  });
+}
 
-// Add task
-document.getElementById('btnAdd').addEventListener('click', addFromForm);
-document.getElementById('inpTitle').addEventListener('keydown', e=>{ if(e.key==='Enter') addFromForm(); });
-function addFromForm(){
+window.toggleTask = async (id, completed)=>{
+  try{ await updateDoc(doc(db,'tasks',id), {completed, completedAt: completed?new Date(): null}); }catch(e){alert(e.message)}
+}
+window.deleteTask = async (id)=>{
+  if(!confirm('Delete this task from cloud? (All devices)')) return;
+  try{ await deleteDoc(doc(db,'tasks',id)); }catch(e){alert(e.message)}
+}
+
+document.getElementById('btnAdd').addEventListener('click', async ()=>{
   const title=document.getElementById('inpTitle').value.trim();
-  if(!title){ alert('Enter task title'); return; }
+  if(!title){alert('Enter title'); return}
   const due=document.getElementById('inpDue').value || todayStr();
   const cat=document.getElementById('inpCat').value;
   const pri=document.getElementById('inpPri').value;
   const notes=document.getElementById('inpNotes').value.trim();
-  const task={id:uid(),title,dueDate:due,category:cat,priority:pri,notes,createdAt:new Date().toISOString(),completed:false,completedAt:null};
-  tasks.unshift(task);
-  save();
-  document.getElementById('inpTitle').value=''; document.getElementById('inpNotes').value='';
-  document.getElementById('inpTitle').focus();
-}
-// default date today
-document.getElementById('inpDue').value=todayStr();
+  try{
+    await addDoc(collection(db,'tasks'), {title, dueDate:due, category:cat, priority:pri, notes, owner:user.uid, completed:false, completedAt:null, createdAt: serverTimestamp()});
+    document.getElementById('inpTitle').value=''; document.getElementById('inpNotes').value=''; document.getElementById('inpTitle').focus();
+  }catch(e){alert('Add failed: '+e.message)}
+});
+document.getElementById('inpTitle').addEventListener('keydown', e=>{ if(e.key==='Enter') document.getElementById('btnAdd').click() });
 
-// toggle
-window.toggle=function(id){
-  const t=tasks.find(x=>x.id===id); if(!t) return;
-  t.completed=!t.completed;
-  t.completedAt=t.completed?new Date().toISOString():null;
-  // remember if it was overdue/today for progress
-  if(t.completed){
-    t._wasOverdue = t.dueDate && t.dueDate < todayStr();
-    t._originalDue = t.dueDate;
-  }
-  save();
-}
-window.deleteTask=function(id){
-  if(!confirm('Delete this task?')) return;
-  tasks=tasks.filter(x=>x.id!==id); save();
-}
-window.editTask=function(id){
-  const t=tasks.find(x=>x.id===id); if(!t) return;
-  const newTitle=prompt('Edit title:',t.title); if(newTitle===null) return;
-  if(newTitle.trim()) t.title=newTitle.trim();
-  const newDue=prompt('Edit due date (YYYY-MM-DD):',t.dueDate); if(newDue!==null && newDue) t.dueDate=newDue;
-  const newNotes=prompt('Edit notes/link:',t.notes||''); if(newNotes!==null) t.notes=newNotes;
-  save();
-}
-
-// filters
-document.querySelectorAll('.filter-pill').forEach(b=>{
-  b.addEventListener('click',()=>{
-    document.querySelectorAll('.filter-pill').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    activeFilter=b.dataset.filter;
-    render();
-  })
-})
-
-// clear done
-document.getElementById('btnClearDone').addEventListener('click',()=>{
-  if(!confirm('Clear all completed tasks?')) return;
-  tasks=tasks.filter(x=>!x.completed); save();
-})
-// export
-document.getElementById('btnExport').addEventListener('click',()=>{
+document.getElementById('btnLogin').addEventListener('click', async ()=>{
+  const email=document.getElementById('email').value.trim(); const pwd=document.getElementById('password').value;
+  if(!email||!pwd){alert('Enter email & password'); return}
+  document.getElementById('authMsg').textContent='Logging in...';
+  try{ await signInWithEmailAndPassword(auth,email,pwd); }catch(e){ document.getElementById('authMsg').textContent=e.message; }
+});
+document.getElementById('btnSignup').addEventListener('click', async ()=>{
+  const email=document.getElementById('email').value.trim(); const pwd=document.getElementById('password').value;
+  if(!email||!pwd||pwd.length<6){alert('Email + password min 6 chars'); return}
+  try{ await createUserWithEmailAndPassword(auth,email,pwd); document.getElementById('authMsg').textContent='Account created & logged in!'; }catch(e){ document.getElementById('authMsg').textContent=e.message; }
+});
+document.getElementById('btnGoogle').addEventListener('click', async ()=>{
+  try{ const provider=new GoogleAuthProvider(); await signInWithPopup(auth,provider); }catch(e){ document.getElementById('authMsg').textContent=e.message; }
+});
+document.getElementById('btnLogout').addEventListener('click', ()=>signOut(auth));
+document.querySelectorAll('.filter-pill').forEach(b=> b.addEventListener('click', ()=>{ document.querySelectorAll('.filter-pill').forEach(x=>x.classList.remove('active')); b.classList.add('active'); activeFilter=b.dataset.filter; render(); }));
+document.getElementById('btnClearDone').addEventListener('click', async ()=>{
+  if(!confirm('Delete all completed tasks from cloud? This deletes on iPhone too.')) return;
+  const done=tasks.filter(t=>t.completed);
+  for(let t of done){ try{ await deleteDoc(doc(db,'tasks',t.id)); }catch(e){ console.error(e) } }
+});
+document.getElementById('btnExport').addEventListener('click', ()=>{
   const blob=new Blob([JSON.stringify(tasks,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a'); a.href=url; a.download=`work-checklist-backup-${todayStr()}.json`; a.click();
-  URL.revokeObjectURL(url);
-})
-document.getElementById('fileImport').addEventListener('change',e=>{
-  const file=e.target.files[0]; if(!file) return;
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    try{
-      const imported=JSON.parse(ev.target.result);
-      if(Array.isArray(imported)){ tasks=imported; save(); alert('Imported '+imported.length+' tasks'); }
-      else alert('Invalid file');
-    }catch(err){ alert('Failed to import: '+err.message) }
-  };
-  reader.readAsText(file);
-})
+  const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=`work-checklist-sync-backup-${todayStr()}.json`; a.click(); URL.revokeObjectURL(url);
+});
+document.getElementById('btnMigrate').addEventListener('click', async ()=>{
+  const old=localStorage.getItem('workChecklistTasksV2');
+  if(!old){ alert('No offline tasks found in this browser localStorage. Open old dashboard-offline-backup.html first to create them, then migrate from that browser.'); return; }
+  try{
+    const arr=JSON.parse(old);
+    if(!confirm(`Found ${arr.length} offline tasks. Migrate them to Firebase cloud? (Will duplicate if already migrated)`)) return;
+    for(let t of arr){
+      if(t.completed) continue;
+      await addDoc(collection(db,'tasks'), {title:t.title, dueDate:t.dueDate||todayStr(), category:t.category||'Admin', priority:t.priority||'Medium', notes:t.notes||'', owner:user.uid, completed:false, createdAt: serverTimestamp()});
+    }
+    alert('Migrated '+arr.length+' tasks to cloud!');
+  }catch(e){ alert('Migrate failed: '+e.message) }
+});
 
-// Seed demo tasks if empty
-if(tasks.length===0){
-  tasks=[
-    {id:uid(),title:'Check & reply to urgent emails',dueDate:todayStr(),category:'Emails',priority:'High',notes:'Inbox zero before meetings',createdAt:new Date().toISOString(),completed:false},
-    {id:uid(),title:'Daily standup / team sync',dueDate:todayStr(),category:'Meetings',priority:'High',notes:'9:30 AM - prepare updates',createdAt:new Date().toISOString(),completed:false},
-    {id:uid(),title:'Send weekly report to manager',dueDate:todayStr(),category:'Reports',priority:'Medium',notes:'Include KPIs link',createdAt:new Date().toISOString(),completed:false},
-    {id:uid(),title:'Follow up with client on proposal',dueDate:addDays(todayStr(),1),category:'Follow-ups',priority:'High',notes:'Client: ABC Corp',createdAt:new Date().toISOString(),completed:false},
-    {id:uid(),title:'Organize files & expense claims',dueDate:addDays(todayStr(),2),category:'Admin',priority:'Low',notes:'',createdAt:new Date().toISOString(),completed:false},
-    {id:uid(),title:'Example of overdue task — shows here until done',dueDate:addDays(todayStr(),-1),category:'Admin',priority:'Medium',notes:'This is demo - mark complete or delete',createdAt:new Date().toISOString(),completed:false},
-  ];
-  localStorage.setItem(LS_KEY,JSON.stringify(tasks));
-}
-render();
+startApp();
 </script>
 </body>
 </html>
