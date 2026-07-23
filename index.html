@@ -132,10 +132,18 @@ code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
 
 <div id="authCard" class="card auth-card" style="display:none">
   <h2>🔐 Login to Sync Across PC & iPhone</h2>
-  <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Use SAME email on Windows PC and iPhone Chrome.</p>
+  <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Use SAME email on Windows PC and iPhone Chrome. <b>First time? → Create Account.</b></p>
+  <div style="background:#eff6ff;border:1px solid #bfdbfe;padding:8px 12px;border-radius:10px;margin-bottom:12px;font-size:12px;color:#1e40af">
+    <b>How to create account (30 sec):</b><br>
+    1. Type email <b>without spaces</b>: <code><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0c616968656d623c6f637c7f697f4c656f60637968226f6361">[email&#160;protected]</a></code><br>
+    2. Type password: at least 6 letters, e.g. <code>Work2026!</code><br>
+    3. Click <b>Create Account</b> → it will auto-login<br>
+    4. Next time, use <b>Login</b> button<br>
+    <span style="font-size:11px;color:#64748b">If you see <code>auth/invalid-email</code> → you have a space before/after @. Delete and retype manually, don't copy-paste.</span>
+  </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:520px">
-    <input id="email" class="input" placeholder="you@email.com" type="email">
-    <input id="password" class="input" placeholder="password (min 6 chars)" type="password">
+    <input id="email" class="input" placeholder="you@email.com (no spaces)" type="email" autocapitalize="off" autocomplete="email" spellcheck="false">
+    <input id="password" class="input" placeholder="password (min 6 chars)" type="password" autocomplete="new-password">
   </div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
     <button id="btnLogin" class="btn btn-primary">Login</button>
@@ -193,7 +201,7 @@ code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
 </div>
 
 <!-- NON-MODULE FALLBACK: Updates header even if Firebase module fails -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function(){
   function upd(){
     try{
@@ -245,12 +253,12 @@ code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
 <script type="module">
 // ================= FIREBASE CONFIG - REPLACE THIS =================
 const firebaseConfig = {
-  apiKey: "AIzaSyAoKR_gX5jAf3gvoFCkMqjaYFzd5zedQ58",
-  authDomain: "work-checklist-466de.firebaseapp.com",
-  projectId: "work-checklist-466de",
-  storageBucket: "work-checklist-466de.firebasestorage.app",
-  messagingSenderId: "647515200796",
-  appId: "1:647515200796:web:34497895aff437901aeed9"
+  apiKey: "REPLACE_ME",
+  authDomain: "REPLACE_ME.firebaseapp.com",
+  projectId: "REPLACE_ME",
+  storageBucket: "REPLACE_ME.appspot.com",
+  messagingSenderId: "REPLACE_ME",
+  appId: "REPLACE_ME"
 };
 // ================= END CONFIG =================
 const isConfigured = firebaseConfig.apiKey !== "REPLACE_ME" && firebaseConfig.apiKey.includes("AIza");
@@ -381,16 +389,35 @@ document.getElementById('btnAdd').addEventListener('click', async ()=>{
   const cat=document.getElementById('inpCat').value; const pri=document.getElementById('inpPri').value; const notes=document.getElementById('inpNotes').value.trim();
   try{ await addDoc(collection(db,'tasks'), {title, dueDate:due, category:cat, priority:pri, notes, owner:user.uid, completed:false, completedAt:null, createdAt: serverTimestamp()}); document.getElementById('inpTitle').value=''; document.getElementById('inpNotes').value=''; }catch(e){alert('Add failed: '+e.message)}
 });
+function cleanEmail(raw){ return (raw||'').trim().toLowerCase().replace(/\s+/g,'').replace(/%40/g,'@'); }
+function friendlyAuthError(err){
+  const code=err.code||'';
+  if(code.includes('invalid-email')) return '❌ Invalid email format — remove spaces. Use like: median0copses@icloud.com (no spaces, must have @). You typed: "'+document.getElementById('email').value+'"';
+  if(code.includes('operation-not-allowed')) return '❌ Email/Password login not enabled yet. Go to Firebase Console → Authentication → Sign-in method → Enable Email/Password → Save.';
+  if(code.includes('weak-password')) return '❌ Password too weak — must be at least 6 characters.';
+  if(code.includes('email-already-in-use')) return '⚠️ This email already has an account — click Login instead of Create Account.';
+  if(code.includes('user-not-found')||code.includes('wrong-password')||code.includes('invalid-credential')) return '❌ Wrong email or password — if first time, click Create Account first.';
+  return err.message;
+}
+
 document.getElementById('btnLogin').addEventListener('click', async ()=>{
-  const email=document.getElementById('email').value.trim(); const pwd=document.getElementById('password').value;
-  try{ await signInWithEmailAndPassword(auth,email,pwd); }catch(e){ document.getElementById('authMsg').textContent=e.message; }
+  const email=cleanEmail(document.getElementById('email').value); const pwd=document.getElementById('password').value;
+  document.getElementById('email').value=email;
+  if(!email.includes('@')||!email.includes('.')){ document.getElementById('authMsg').textContent='❌ Enter valid email like name@icloud.com'; return; }
+  document.getElementById('authMsg').textContent='Logging in...';
+  try{ await signInWithEmailAndPassword(auth,email,pwd); document.getElementById('authMsg').textContent=''; }catch(e){ document.getElementById('authMsg').textContent=friendlyAuthError(e); }
 });
 document.getElementById('btnSignup').addEventListener('click', async ()=>{
-  const email=document.getElementById('email').value.trim(); const pwd=document.getElementById('password').value;
-  try{ await createUserWithEmailAndPassword(auth,email,pwd); }catch(e){ document.getElementById('authMsg').textContent=e.message; }
+  const email=cleanEmail(document.getElementById('email').value); const pwd=document.getElementById('password').value;
+  document.getElementById('email').value=email;
+  if(!email.includes('@')||!email.includes('.')){ document.getElementById('authMsg').textContent='❌ Enter valid email like name@icloud.com'; return; }
+  if(pwd.length<6){ document.getElementById('authMsg').textContent='❌ Password must be at least 6 characters'; return; }
+  document.getElementById('authMsg').textContent='Creating account...';
+  try{ await createUserWithEmailAndPassword(auth,email,pwd); document.getElementById('authMsg').textContent='✅ Account created! Logged in.'; }catch(e){ document.getElementById('authMsg').textContent=friendlyAuthError(e); }
 });
 document.getElementById('btnGoogle').addEventListener('click', async ()=>{
-  try{ const provider=new GoogleAuthProvider(); await signInWithPopup(auth,provider); }catch(e){ document.getElementById('authMsg').textContent=e.message; }
+  document.getElementById('authMsg').textContent='Opening Google popup...';
+  try{ const provider=new GoogleAuthProvider(); await signInWithPopup(auth,provider); document.getElementById('authMsg').textContent=''; }catch(e){ document.getElementById('authMsg').textContent=friendlyAuthError(e); }
 });
 document.getElementById('btnLogout').addEventListener('click', ()=>signOut(auth));
 document.querySelectorAll('.filter-pill').forEach(b=> b.addEventListener('click', ()=>{ document.querySelectorAll('.filter-pill').forEach(x=>x.classList.remove('active')); b.classList.add('active'); activeFilter=b.dataset.filter; render(); }));
@@ -404,6 +431,6 @@ document.getElementById('btnExport').addEventListener('click', ()=>{
 
 startApp();
 </script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f"}' crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1f7591f2a714bc5',t:'MTc4NDc3NDcxNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f"}' crossorigin="anonymous"></script>
 </body>
 </html>
