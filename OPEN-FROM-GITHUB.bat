@@ -4,7 +4,7 @@
 
 :: ========== EDIT THIS LINE ==========
 :: Replace YOURUSERNAME with your GitHub username after you push
-set "URL=https://YOURUSERNAME.github.io/work-checklist/"
+set "URL=https://abdilhaiyan.github.io/work-checklist/"
 :: ====================================
 
 echo.
