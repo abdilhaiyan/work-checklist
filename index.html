@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Work Checklist - 9AM Sync (Firebase)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Work Checklist - 9AM Sync</title>
 <style>
 :root{--bg:#f8fafc;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--ring:#3b82f6;--red:#ef4444;--red-bg:#fef2f2;--red-border:#fecaca;--blue:#3b82f6;--blue-bg:#eff6ff;--blue-border:#bfdbfe}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
-.container{max-width:1120px;margin:0 auto;padding:20px 20px 80px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+.container{max-width:1120px;margin:0 auto;padding:20px 20px 90px}
 header{background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#334155 100%);color:white;border-radius:20px;padding:28px 28px 22px;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.15)}
 header::after{content:'';position:absolute;top:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(59,130,246,.35),transparent 70%);border-radius:50%}
 .top-row{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px;position:relative;z-index:1}
@@ -17,40 +17,43 @@ header::after{content:'';position:absolute;top:-50px;right:-50px;width:200px;hei
 .time-badge{background:rgba(255,255,255,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:10px 14px;min-width:200px}
 .time-badge .clock{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px;position:relative;z-index:1}
-@media(max-width:720px){.stats{grid-template-columns:repeat(2,1fr)}}
 .stat-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:12px 14px}
 .stat-card .label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.7}
 .stat-card .value{font-size:22px;font-weight:800;margin-top:2px}
 .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .setup-card{padding:22px;margin-top:18px;border:2px dashed #f59e0b;background:#fffbeb}
 .auth-card{padding:20px;margin-top:18px}
-.input,.select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:14px;background:white}
-.btn{border:none;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;justify-content:center}
+.input,.select{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:10px;font-size:14px;background:white;transition:.15s}
+.input:focus,.select:focus{outline:none;border-color:var(--ring);box-shadow:0 0 0 3px rgba(59,130,246,.15)}
+.btn{border:none;border-radius:10px;padding:10px 14px;font-size:14px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;justify-content:center;transition:.15s}
 .btn-primary{background:#0f172a;color:white}
+.btn-primary:hover{background:#1e293b}
 .btn-ghost{background:#f1f5f9;color:var(--text)}
 .btn-small{padding:6px 10px;font-size:12px;border-radius:8px}
+.btn-subtask{padding:5px 9px;font-size:11px;border-radius:7px;background:#f1f5f9;border:1px solid var(--border);cursor:pointer;font-weight:600}
+.btn-subtask:hover{background:#e2e8f0}
 .add-card{padding:18px;margin-top:18px}
 .form-grid{display:grid;grid-template-columns:1.6fr .9fr .9fr .9fr;gap:10px}
-@media(max-width:900px){.form-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:580px){.form-grid{grid-template-columns:1fr}}
 .form-row-2{display:grid;grid-template-columns:1fr 120px;gap:10px;margin-top:10px}
 .filters{display:flex;gap:8px;flex-wrap:wrap;margin:18px 2px 6px}
-.filter-pill{padding:7px 12px;border-radius:999px;border:1px solid var(--border);background:white;font-size:12px;font-weight:600;cursor:pointer}
+.filter-pill{padding:7px 12px;border-radius:999px;border:1px solid var(--border);background:white;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
 .filter-pill.active{background:#0f172a;color:white;border-color:#0f172a}
 .main-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;margin-top:14px}
-@media(max-width:980px){.main-grid{grid-template-columns:1fr}}
 .section{padding:14px}
 .section-head{display:flex;justify-content:space-between;align-items:center;padding:8px 6px 12px;border-bottom:1px dashed var(--border);margin-bottom:10px}
 .section-head h3{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
 .count{background:#f1f5f9;border:1px solid var(--border);padding:2px 8px;border-radius:999px;font-size:11px}
 .task-list{display:flex;flex-direction:column;gap:8px}
-.task{display:flex;gap:10px;padding:12px 12px;border:1px solid var(--border);border-radius:12px;background:white}
-.task.completed{opacity:.6;background:#f8fafc}
+.task{display:flex;gap:10px;padding:12px 12px;border:1px solid var(--border);border-radius:12px;background:white;transition:.15s}
+.task:hover{border-color:#cbd5e1;box-shadow:0 4px 12px rgba(0,0,0,.04)}
+.task.completed{opacity:.55;background:#f8fafc}
 .task.completed .task-title{text-decoration:line-through}
-.check{width:20px;height:20px;border:2px solid #cbd5e1;border-radius:6px;display:grid;place-items:center;cursor:pointer;flex-shrink:0;background:white}
+.task-left{display:flex;align-items:flex-start;padding-top:2px}
+.check{width:22px;height:22px;border:2px solid #cbd5e1;border-radius:6px;display:grid;place-items:center;cursor:pointer;flex-shrink:0;background:white;transition:.15s;font-size:12px}
 .check.checked{background:#0f172a;border-color:#0f172a;color:white}
+.check.small{width:18px;height:18px;border-radius:5px;font-size:10px}
 .task-body{flex:1;min-width:0}
-.task-title{font-size:14px;font-weight:600}
+.task-title{font-size:14px;font-weight:600;line-height:1.3;word-break:break-word}
 .task-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 .badge{font-size:10px;font-weight:700;padding:3px 7px;border-radius:999px;border:1px solid;white-space:nowrap}
 .badge-cat-Emails{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe}
@@ -65,16 +68,60 @@ header::after{content:'';position:absolute;top:-50px;right:-50px;width:200px;hei
 .badge-due.overdue{background:var(--red-bg);color:var(--red);border-color:var(--red-border)}
 .badge-due.today2{background:var(--blue-bg);color:#1d4ed8;border-color:var(--blue-border)}
 .notes{font-size:12px;color:var(--muted);margin-top:6px;background:#f8fafc;border:1px dashed var(--border);padding:6px 8px;border-radius:8px;word-break:break-word}
-.task-actions{display:flex;gap:4px}
-.icon-btn{width:28px;height:28px;border-radius:8px;border:1px solid var(--border);background:white;display:grid;place-items:center;cursor:pointer;font-size:12px}
+.task-actions{display:flex;gap:4px;align-items:flex-start}
+.icon-btn{width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:white;display:grid;place-items:center;cursor:pointer;font-size:12px}
+.subtasks{margin-top:10px;padding-left:12px;border-left:2px solid #e2e8f0;display:flex;flex-direction:column;gap:6px}
+.subtask{display:flex;gap:8px;align-items:center;padding:7px 10px;background:#f8fafc;border:1px solid var(--border);border-radius:9px;font-size:13px}
+.subtask.completed{opacity:.6}
+.subtask.completed .subtask-title{text-decoration:line-through}
+.subtask-title{flex:1;word-break:break-word}
+.add-subtask{display:flex;gap:6px;margin-top:8px}
+.add-subtask input{flex:1;padding:7px 10px;border:1px solid var(--border);border-radius:8px;font-size:13px}
 .empty{padding:22px;text-align:center;color:var(--muted);font-size:13px;border:1px dashed var(--border);border-radius:12px;background:#fbfdff}
 .bar{height:6px;background:#f1f5f9;border-radius:999px;overflow:hidden;margin-top:12px}
 .bar-fill{height:100%;background:#0f172a;transition:width .4s}
 .sync-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;padding:5px 10px;border-radius:999px;font-weight:700}
 .sync-badge.offline{background:#fef2f2;border-color:#fecaca;color:#991b1b}
 .user-box{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:8px 12px}
-code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
 #errorBox{display:none;margin-top:18px;padding:16px;background:#fef2f2;border:2px solid #fecaca;border-radius:12px;font-size:13px}
+.explain-card{background:linear-gradient(135deg,#eff6ff,#f0fdf4);border:1px solid #bfdbfe;padding:16px;border-radius:14px;margin-top:16px}
+.explain-card h4{font-size:14px;font-weight:800}
+.explain-card p{font-size:13px;line-height:1.6;margin-top:6px;color:#334155}
+code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
+
+/* ===== MOBILE SMOOTH FIX ===== */
+@media(max-width:720px){
+  .container{padding:12px 12px 100px}
+  header{padding:18px 16px 16px;border-radius:16px}
+  .greeting h1{font-size:21px;line-height:1.2}
+  .greeting p{font-size:12px}
+  .top-row{flex-direction:column}
+  .time-badge{width:100%;display:flex;justify-content:space-between;align-items:center;padding:12px 14px}
+  .time-badge .clock{font-size:18px}
+  .stats{grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+  .stat-card{padding:10px 12px}
+  .stat-card .value{font-size:18px}
+  .card{border-radius:14px}
+  .add-card{padding:14px}
+  .form-grid{grid-template-columns:1fr;gap:10px}
+  .form-row-2{grid-template-columns:1fr;gap:10px}
+  .input,.select{font-size:16px !important;padding:12px 14px;border-radius:12px} /* 16px prevents iOS zoom */
+  .btn{padding:13px 16px;min-height:46px;font-size:15px;border-radius:12px}
+  .btn-small{padding:8px 12px;min-height:36px;font-size:13px}
+  .filters{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:8px;gap:6px;margin:14px 0 6px}
+  .filters::-webkit-scrollbar{display:none}
+  .filter-pill{padding:8px 12px;font-size:12px}
+  .main-grid{grid-template-columns:1fr;gap:12px}
+  .section{padding:12px}
+  .task{padding:14px 12px;border-radius:14px}
+  .check{width:26px;height:26px}
+  .check.small{width:20px;height:20px}
+  .task-title{font-size:15px}
+  .icon-btn{width:34px;height:34px;border-radius:10px}
+  .subtasks{padding-left:10px}
+  .user-box{width:100%;justify-content:space-between}
+  .explain-card{padding:14px}
+}
 </style>
 </head>
 <body>
@@ -89,9 +136,9 @@ code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
         <span class="sync-badge" style="background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:white">Firebase FREE sync • PC ↔ iPhone</span>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end;position:relative;z-index:1">
+    <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end;position:relative;z-index:1;width:100%;max-width:260px">
       <div class="time-badge"><div class="clock" id="clock">09:00 AM</div><div class="sub" style="font-size:12px;opacity:.8">Mon–Fri 9AM auto-open • <span id="nextCheck">Today</span></div></div>
-      <div id="userBox" class="user-box" style="display:none"><div><div id="userEmail" class="email" style="font-size:12px"></div><div style="font-size:10px;opacity:.7">Synced across all devices</div></div><button id="btnLogout" class="btn btn-ghost btn-small">Logout</button></div>
+      <div id="userBox" class="user-box" style="display:none;width:100%"><div><div id="userEmail" class="email" style="font-size:12px"></div><div style="font-size:10px;opacity:.7">Synced across all devices</div></div><button id="btnLogout" class="btn btn-ghost btn-small">Logout</button></div>
     </div>
   </div>
   <div class="stats">
@@ -105,45 +152,16 @@ code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
 <div id="errorBox"></div>
 
 <div id="setupNeeded" class="card setup-card" style="display:none">
-  <h2>⚙️ Firebase Setup Needed — 2 Minutes, FREE</h2>
-  <p style="font-size:13px;margin:8px 0">Your screenshot shows <code>Connecting...</code> because Firebase config is still <code>REPLACE_ME</code> or has a syntax error.</p>
-  <div style="background:white;padding:12px;border-radius:10px;border:1px solid #fde68a;margin:10px 0">
-    <b>How to fix (do this in your local file, then push again):</b>
-    <ol style="margin-left:18px;margin-top:8px;font-size:13px;line-height:1.7">
-      <li>Open <code>index.html</code> you pushed in Notepad. Find <code>const firebaseConfig = {</code></li>
-      <li>Replace ENTIRE object with your real config from Firebase Console > Project Settings > General > Your apps > Web</li>
-      <li>It must look like:<br><code style="display:block;white-space:pre;background:#0f172a;color:#e2e8f0;padding:10px;border-radius:8px;margin-top:6px;font-size:11px">const firebaseConfig = {
-  apiKey: "AIzaSyA...",
-  authDomain: "work-checklist-xxxxx.firebaseapp.com",
-  projectId: "work-checklist-xxxxx",
-  storageBucket: "work-checklist-xxxxx.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abc123"
-};</code></li>
-      <li>Make sure there are commas, quotes correct. No trailing comments inside.</li>
-      <li>Save, then in GitHub Desktop or command: <code>git add index.html</code> → <code>git commit -m "fix firebase config"</code> → <code>git push</code></li>
-      <li>Wait 2 min for Pages to rebuild (check Actions tab in GitHub - green tick).</li>
-      <li>Hard refresh: Ctrl+Shift+R (Windows) or Cmd+Shift+R (iPhone - close tab reopen).</li>
-    </ol>
-  </div>
-  <p style="font-size:12px;color:#92400e">If you DID replace, common mistakes: ❌ Forgot to push after editing local file (you edited locally but GitHub still has old REPLACE_ME) ❌ Enabled Authentication? Must enable Email/Password in Firebase Console → Authentication → Sign-in method ❌ Enabled Firestore? Must create database in asia-southeast1.</p>
-  <details style="margin-top:10px"><summary style="cursor:pointer;font-size:12px;font-weight:700">Click to see how to check if your GitHub Pages has new code</summary><p style="font-size:12px;margin-top:6px">Open your Pages URL → Right-click → View Source → search for <code>REPLACE_ME</code>. If you still see it, your push didn't work or Pages hasn't rebuilt yet.</p></details>
+  <h2>⚙️ Firebase Setup Needed</h2>
+  <p style="font-size:13px;margin:8px 0">Config still has <code>REPLACE_ME</code>. Paste your Firebase config.</p>
 </div>
 
 <div id="authCard" class="card auth-card" style="display:none">
   <h2>🔐 Login to Sync Across PC & iPhone</h2>
   <p style="font-size:13px;color:var(--muted);margin-bottom:12px">Use SAME email on Windows PC and iPhone Chrome. <b>First time? → Create Account.</b></p>
-  <div style="background:#eff6ff;border:1px solid #bfdbfe;padding:8px 12px;border-radius:10px;margin-bottom:12px;font-size:12px;color:#1e40af">
-    <b>How to create account (30 sec):</b><br>
-    1. Type email <b>without spaces</b>: <code><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0c616968656d623c6f637c7f697f4c656f60637968226f6361">[email&#160;protected]</a></code><br>
-    2. Type password: at least 6 letters, e.g. <code>Work2026!</code><br>
-    3. Click <b>Create Account</b> → it will auto-login<br>
-    4. Next time, use <b>Login</b> button<br>
-    <span style="font-size:11px;color:#64748b">If you see <code>auth/invalid-email</code> → you have a space before/after @. Delete and retype manually, don't copy-paste.</span>
-  </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;max-width:520px">
     <input id="email" class="input" placeholder="you@email.com (no spaces)" type="email" autocapitalize="off" autocomplete="email" spellcheck="false">
-    <input id="password" class="input" placeholder="password (min 6 chars)" type="password" autocomplete="new-password">
+    <input id="password" class="input" placeholder="password (min 6 chars)" type="password">
   </div>
   <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
     <button id="btnLogin" class="btn btn-primary">Login</button>
@@ -157,7 +175,7 @@ code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
   <div class="card add-card">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:12px">
       <h2 style="font-size:15px;font-weight:800">+ Add New Work Task (Syncs to all devices)</h2>
-      <button id="btnMigrate" class="btn btn-ghost btn-small">Migrate offline tasks</button>
+      <span style="font-size:11px;color:var(--muted)" id="currentDateHint"></span>
     </div>
     <div class="form-grid">
       <input id="inpTitle" class="input" placeholder="Task title — e.g. Send Q2 report">
@@ -170,6 +188,7 @@ code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
       <button id="btnAdd" class="btn btn-primary">Add & Sync ⏎</button>
     </div>
   </div>
+
   <div class="filters" id="filters">
     <button class="filter-pill active" data-filter="all">All</button>
     <button class="filter-pill" data-filter="cat:Emails">📧 Emails</button>
@@ -179,6 +198,7 @@ code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
     <button class="filter-pill" data-filter="cat:Follow-ups">↩️ Follow-ups</button>
     <button class="filter-pill" data-filter="pri:High">🔴 High Only</button>
   </div>
+
   <div class="main-grid">
     <div style="display:flex;flex-direction:column;gap:16px">
       <div class="card section"><div class="section-head"><h3>🔴 Overdue</h3><span class="count" id="countOverdue">0</span></div><div class="task-list" id="listOverdue"></div></div>
@@ -189,20 +209,38 @@ code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
       <div class="card section"><div class="section-head"><h3>📅 Upcoming / Later</h3><span class="count" id="countUpcoming">0</span></div><div class="task-list" id="listUpcoming"></div></div>
       <div class="card section"><div class="section-head"><h3>✅ Completed</h3><span class="count" id="countDone">0</span></div><div class="task-list" id="listDone"></div>
         <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-          <button id="btnClearDone" class="btn btn-ghost btn-small">Clear Completed (cloud)</button>
+          <button id="btnClearDone" class="btn btn-ghost btn-small">Clear Completed</button>
           <button id="btnExport" class="btn btn-ghost btn-small">Export Backup</button>
         </div>
+      </div>
+      
+      <div class="explain-card">
+        <h4>🧒 Where is your data stored? (Explain like you're 5)</h4>
+        <p>
+          Imagine you have a <b>magic notebook</b>.<br><br>
+          <b>Old way (localStorage):</b> You had 2 notebooks — 1 on your PC and 1 on your iPhone. Writing in PC notebook didn't show in iPhone notebook. That's why it didn't sync.<br><br>
+          <b>New way (Firebase - what you have now):</b> You have <b>ONE magic notebook in the cloud</b> (Google's big safe in Singapore). Your PC looks at it. Your iPhone looks at the SAME notebook. When you write "Do report" on PC, iPhone sees it instantly because it's the same notebook!<br><br>
+          <b>Is GitHub storing my tasks?</b> No. GitHub only holds the <b>empty notebook cover (the code)</b>. The writings (your tasks) go to the magic cloud notebook (Firebase). Guards check your email login, only you can open it.<br><br>
+          <b>What if no internet?</b> The notebook makes a photo copy on your device, so you can still read. When internet back, it syncs.
+        </p>
       </div>
     </div>
   </div>
 </div>
-
-<div style="margin-top:24px;font-size:11px;color:var(--muted);text-align:center">Firebase Sync • Free: 50k reads/day • GitHub Pages • 9AM Mon-Fri auto-open • Data stored in Firebase, NOT GitHub</div>
 </div>
 
-<!-- NON-MODULE FALLBACK: Updates header even if Firebase module fails -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<!-- NON-MODULE: Date fix + fallback -->
+<script>
 (function(){
+  // FIX #2: Always use LOCAL date, not UTC (critical for MY timezone UTC+8)
+  function localTodayStr(){
+    const d=new Date();
+    const y=d.getFullYear();
+    const m=String(d.getMonth()+1).padStart(2,'0');
+    const day=String(d.getDate()).padStart(2,'0');
+    return `${y}-${m}-${day}`;
+  }
+  window.localTodayStr = localTodayStr;
   function upd(){
     try{
       const now=new Date();
@@ -213,45 +251,39 @@ code.inline{background:#f1f5f9;padding:2px 6px;border-radius:6px;font-size:11px}
       if(cl) cl.textContent=now.toLocaleTimeString(undefined,{hour:'2-digit',minute:'2-digit'});
       const next=new Date(); next.setHours(9,0,0,0); if(now>next || [0,6].includes(now.getDay())){ do{next.setDate(next.getDate()+1)}while([0,6].includes(next.getDay())) }
       const nc=document.getElementById('nextCheck'); if(nc) nc.textContent=next.toLocaleString(undefined,{weekday:'short',hour:'2-digit',minute:'2-digit'});
+      const hint=document.getElementById('currentDateHint');
+      if(hint) hint.textContent='Today is '+localTodayStr();
+      const dueInput=document.getElementById('inpDue');
+      // FIX #2: always set current date on open, not old cached date
+      if(dueInput && !dueInput.value) dueInput.value=localTodayStr();
+      // If input value is old (e.g., from yesterday's cached page), update if it's empty or if user hasn't changed it recently? We set every time page becomes visible
     }catch(e){}
   }
   upd(); setInterval(upd,15000);
-  document.getElementById('inpDue').value=new Date().toISOString().slice(0,10);
+  document.addEventListener('visibilitychange', function(){
+    if(!document.hidden){
+      const dueInput=document.getElementById('inpDue');
+      if(dueInput) dueInput.value=localTodayStr(); // refresh date when tab re-opened
+      upd();
+    }
+  });
+  // Initial due date
+  const dueInit=document.getElementById('inpDue');
+  if(dueInit) dueInit.value=localTodayStr();
 
-  // If after 4 seconds still connecting, show diagnostics
   setTimeout(function(){
     var status=document.getElementById('syncStatus');
     var setup=document.getElementById('setupNeeded');
-    var errBox=document.getElementById('errorBox');
-    if(!status) return;
-    if(status.textContent.includes('Connecting')){
-      // Check if page source still has REPLACE_ME
-      var html=document.documentElement.innerHTML;
-      var hasReplace = html.includes('REPLACE_ME');
-      if(hasReplace){
-        setup.style.display='block';
-        status.textContent='● Config missing - still REPLACE_ME';
-        status.className='sync-badge offline';
-        document.getElementById('dateText').textContent='⚠️ Firebase config not replaced yet — see yellow box below';
-      } else {
-        // Config replaced but maybe module failed
-        setup.style.display='block';
-        errBox.style.display='block';
-        errBox.innerHTML='<b>⚠️ Firebase module failed to load</b><br><br>Your config looks replaced, but Firebase SDK failed.<br>1) Press <b>F12 → Console tab</b> — screenshot the red error and send to me.<br>2) Common: <code>auth/configuration-not-found</code> = you forgot to enable Email/Password in Firebase Console → Authentication → Sign-in method → Enable.<br>3) Common: <code>Missing or insufficient permissions</code> = Firestore rules block. Go to Firestore → Rules → set to Test mode temporarily: <code>allow read, write: if true;</code><br>4) Common: Still seeing old page = GitHub Pages cache. Wait 2 min + hard refresh Ctrl+Shift+R.<br><br>Your Pages URL source should NOT contain REPLACE_ME. Right-click → View Source → search REPLACE_ME to verify your push worked.';
-        status.textContent='● Check F12 Console for error';
-      }
+    if(status && status.textContent.includes('Connecting') && document.documentElement.innerHTML.includes('REPLACE_ME')){
+      setup.style.display='block';
+      status.textContent='● Config missing - still REPLACE_ME';
     }
   },4000);
-
-  window.addEventListener('error', function(e){
-    var box=document.getElementById('errorBox');
-    if(box){ box.style.display='block'; box.innerHTML='<b>JS Error:</b> '+e.message+'<br><span style=\"font-size:11px\">Check firebaseConfig syntax - missing comma or quote.</span>'; }
-  });
 })();
 </script>
 
 <script type="module">
-// ================= FIREBASE CONFIG - REPLACE THIS =================
+// ===== FIREBASE CONFIG - YOUR PROJECT (work-checklist-466de) =====
 const firebaseConfig = {
   apiKey: "AIzaSyAoKR_gX5jAf3gvoFCkMqjaYFzd5zedQ58",
   authDomain: "work-checklist-466de.firebaseapp.com",
@@ -260,7 +292,7 @@ const firebaseConfig = {
   messagingSenderId: "647515200796",
   appId: "1:647515200796:web:34497895aff437901aeed9"
 };
-// ================= END CONFIG =================
+// ================================================================
 const isConfigured = firebaseConfig.apiKey !== "REPLACE_ME" && firebaseConfig.apiKey.includes("AIza");
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -268,18 +300,43 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, on
 import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, query, where, enableIndexedDbPersistence, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 let app, auth, db, user=null, tasks=[], unsub=null, activeFilter='all';
-function todayStr(){const d=new Date(); d.setHours(0,0,0,0); return d.toISOString().slice(0,10)}
-function parseISO(s){const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d)}
-function addDays(iso,n){let d=parseISO(iso); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10)}
+
+// FIX #1 & #2: Use LOCAL date everywhere
+function todayStr(){ 
+  const d=new Date();
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function toLocalDateStr(dateObj){
+  const y=dateObj.getFullYear();
+  const m=String(dateObj.getMonth()+1).padStart(2,'0');
+  const d=String(dateObj.getDate()).padStart(2,'0');
+  return `${y}-${m}-${d}`;
+}
+function parseISO(s){ 
+  if(!s) return null;
+  const [y,m,d]=s.split('-').map(Number); 
+  return new Date(y,m-1,d); 
+}
+function addDays(iso,n){
+  const dt=parseISO(iso);
+  if(!dt) return iso;
+  dt.setDate(dt.getDate()+n);
+  return toLocalDateStr(dt);
+}
 function priOrder(t){return {High:0,Medium:1,Low:2}[t.priority]||1}
+
 function getBuckets(){
   const tStr=todayStr();
   const overdue=[],dueToday=[],thisWeek=[],upcoming=[],completed=[];
   for(let t of tasks){
     if(t.completed){completed.push(t);continue}
     if(!t.dueDate){upcoming.push(t);continue}
+    // FIX #1: exact string match for today, using local dates
     if(t.dueDate < tStr) overdue.push(t);
-    else if(t.dueDate===tStr) dueToday.push(t);
+    else if(t.dueDate === tStr) dueToday.push(t);
     else if(t.dueDate <= addDays(tStr,6)) thisWeek.push(t);
     else upcoming.push(t);
   }
@@ -290,6 +347,7 @@ function getBuckets(){
   completed.sort((a,b)=> (b.completedAt?.seconds||0)-(a.completedAt?.seconds||0));
   return {overdue,dueToday,thisWeek,upcoming,completed,tStr};
 }
+
 function render(){
   const {overdue,dueToday,thisWeek,upcoming,completed,tStr}=getBuckets();
   const filtered = list=> list.filter(t=>{
@@ -300,9 +358,10 @@ function render(){
   });
   const completedToday = completed.filter(c=>{
     if(!c.completedAt) return false;
-    const d=c.completedAt.toDate ? c.completedAt.toDate().toISOString().slice(0,10) : '';
-    return d===tStr;
+    const d = c.completedAt.toDate ? c.completedAt.toDate() : new Date(c.completedAt);
+    return toLocalDateStr(d)===tStr;
   }).length;
+
   document.getElementById('statOverdue').textContent=overdue.length;
   document.getElementById('statToday').textContent=dueToday.length;
   document.getElementById('statWeek').textContent=thisWeek.length;
@@ -312,25 +371,90 @@ function render(){
   document.getElementById('countWeek').textContent=filtered(thisWeek).length;
   document.getElementById('countUpcoming').textContent=filtered(upcoming).length;
   document.getElementById('countDone').textContent=completed.length;
+
   const totalAttempt=dueToday.length+overdue.length+completedToday;
   const pct=totalAttempt?Math.round(completedToday/totalAttempt*100):(dueToday.length===0&&overdue.length===0?100:0);
-  document.getElementById('todayProgress').style.width=pct+'%';
-  document.getElementById('todayProgressText').textContent=`${completedToday} completed today • ${pct}% clear`;
-  document.getElementById('listOverdue').innerHTML=filtered(overdue).length?filtered(overdue).map(renderTask).join(''):`<div class="empty">No overdue 🎉</div>`;
-  document.getElementById('listToday').innerHTML=filtered(dueToday).length?filtered(dueToday).map(renderTask).join(''):`<div class="empty">${overdue.length>0?'Clear overdue first.':'Nothing due today.'}</div>`;
-  document.getElementById('listWeek').innerHTML=filtered(thisWeek).length?filtered(thisWeek).map(renderTask).join(''):`<div class="empty">No tasks this week ahead.</div>`;
+  const bar=document.getElementById('todayProgress');
+  if(bar) bar.style.width=pct+'%';
+  const txt=document.getElementById('todayProgressText');
+  if(txt) txt.textContent=`${completedToday} completed today • ${pct}% clear`;
+
+  // FIX #5: Remove 🎉 icon
+  document.getElementById('listOverdue').innerHTML=filtered(overdue).length?filtered(overdue).map(renderTask).join(''):`<div class="empty">No overdue</div>`;
+  document.getElementById('listToday').innerHTML=filtered(dueToday).length?filtered(dueToday).map(renderTask).join(''):`<div class="empty">${overdue.length>0?'Clear overdue first.':'No tasks due today.'}</div>`;
+  document.getElementById('listWeek').innerHTML=filtered(thisWeek).length?filtered(thisWeek).map(renderTask).join(''):`<div class="empty">No tasks this week.</div>`;
   document.getElementById('listUpcoming').innerHTML=filtered(upcoming).length?filtered(upcoming).map(renderTask).join(''):`<div class="empty">No upcoming.</div>`;
   document.getElementById('listDone').innerHTML=completed.slice(0,50).length?completed.slice(0,50).map(renderTask).join(''):`<div class="empty">No completed yet.</div>`;
 }
+
 function renderTask(t){
   const dueLabel=t.dueDate?formatDue(t.dueDate):'No date';
   const dueClass=getDueClass(t);
-  const notes=t.notes?`<div class="notes">${escapeHtml(t.notes).replace(/(https?:\/\/[^\s]+)/g,'<a href="$1" target="_blank">$1</a>')}</div>`:''; 
-  return `<div class="task ${t.completed?'completed':''}"><div class="check ${t.completed?'checked':''}" onclick="window.toggleTask('${t.id}',${!t.completed})">${t.completed?'✓':''}</div><div class="task-body"><div class="task-title">${escapeHtml(t.title)}</div><div class="task-meta"><span class="badge badge-cat-${t.category}">${t.category}</span><span class="badge badge-pri-${t.priority}">${t.priority}</span><span class="badge badge-due ${dueClass}">${dueLabel}</span></div>${notes}</div><div class="task-actions"><button class="icon-btn" onclick="window.deleteTask('${t.id}')">🗑️</button></div></div>`;
+  const notes=t.notes?`<div class="notes">${escapeHtml(t.notes).replace(/(https?:\/\/[^\s]+)/g,'<a href="$1" target="_blank">$1</a>')}</div>`:'';
+  const subs=t.subtasks||[];
+  const doneSubs=subs.filter(s=>s.completed).length;
+  const subProgress = subs.length ? ` • ${doneSubs}/${subs.length} subtasks` : '';
+  
+  let subHtml='';
+  if(subs.length){
+    subHtml+=`<div class="subtasks">`;
+    for(let s of subs){
+      subHtml+=`<div class="subtask ${s.completed?'completed':''}">
+        <div class="check small ${s.completed?'checked':''}" onclick="window.toggleSubtask('${t.id}','${s.id}')"> ${s.completed?'✓':''} </div>
+        <span class="subtask-title">${escapeHtml(s.title)}</span>
+        <button class="btn-subtask" onclick="window.deleteSubtask('${t.id}','${s.id}')">✕</button>
+      </div>`;
+    }
+    subHtml+=`</div>`;
+  }
+  // Add subtask input
+  subHtml+=`<div class="add-subtask" id="addsub-${t.id}" style="display:none">
+    <input type="text" placeholder="Subtask title" id="input-sub-${t.id}" onkeydown="if(event.key==='Enter') window.addSubtask('${t.id}')">
+    <button class="btn-subtask" onclick="window.addSubtask('${t.id}')">Add</button>
+  </div>
+  <div style="margin-top:8px;display:flex;gap:6px">
+    <button class="btn-subtask" onclick="document.getElementById('addsub-${t.id}').style.display = document.getElementById('addsub-${t.id}').style.display==='none'?'flex':'none'; document.getElementById('input-sub-${t.id}')?.focus()">+ Subtask${subProgress}</button>
+  </div>`;
+
+  return `<div class="task ${t.completed?'completed':''}">
+    <div class="task-left"><div class="check ${t.completed?'checked':''}" onclick="window.toggleTask('${t.id}',${!t.completed})">${t.completed?'✓':''}</div></div>
+    <div class="task-body">
+      <div class="task-title">${escapeHtml(t.title)}</div>
+      <div class="task-meta">
+        <span class="badge badge-cat-${t.category||'Admin'}">${t.category||'Admin'}</span>
+        <span class="badge badge-pri-${t.priority||'Medium'}">${t.priority||'Medium'}</span>
+        <span class="badge badge-due ${dueClass}">${dueLabel}</span>
+      </div>
+      ${notes}
+      ${subHtml}
+    </div>
+    <div class="task-actions"><button class="icon-btn" title="Delete" onclick="window.deleteTask('${t.id}')">🗑️</button></div>
+  </div>`;
 }
-function formatDue(iso){const t=todayStr(); if(!iso) return 'No date'; if(iso<t){const diff=Math.round((parseISO(t)-parseISO(iso))/86400000);return `Overdue ${diff}d • ${iso}`} if(iso===t) return `Due Today • ${iso}`; const diff=Math.round((parseISO(iso)-parseISO(t))/86400000); if(diff===1) return `Due Tomorrow • ${iso}`; if(diff<=7) return `Due in ${diff}d • ${iso}`; return `Due ${iso}`;}
+
+function formatDue(iso){
+  const t=todayStr();
+  if(!iso) return 'No date';
+  if(iso<t){const dt=parseISO(iso); const diff=Math.round((new Date()-dt)/86400000); return `Overdue ${diff>0?diff:1}d • ${iso}`}
+  if(iso===t) return `Due Today • ${iso}`;
+  const dt=parseISO(iso); const now=parseISO(t);
+  const diff=Math.round((dt-now)/86400000);
+  if(diff===1) return `Due Tomorrow • ${iso}`;
+  if(diff<=7) return `Due in ${diff}d • ${iso}`;
+  return `Due ${iso}`;
+}
 function getDueClass(t){if(t.completed) return ''; if(!t.dueDate) return ''; const today=todayStr(); if(t.dueDate<today) return 'overdue'; if(t.dueDate===today) return 'today2'; return '';}
 function escapeHtml(s){return (s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function cleanEmail(raw){ return (raw||'').trim().toLowerCase().replace(/\s+/g,''); }
+function friendlyAuthError(err){
+  const code=err.code||'';
+  if(code.includes('invalid-email')) return '❌ Invalid email — remove spaces. Example: median0copses@icloud.com';
+  if(code.includes('operation-not-allowed')) return '❌ Enable Email/Password in Firebase Console → Authentication → Sign-in method';
+  if(code.includes('weak-password')) return '❌ Password must be at least 6 characters';
+  if(code.includes('email-already-in-use')) return '⚠️ Already have account — click Login instead';
+  if(code.includes('user-not-found')||code.includes('wrong-password')||code.includes('invalid-credential')) return '❌ Wrong email/password — click Create Account first if new';
+  return err.message;
+}
 
 async function startApp(){
   const setupEl=document.getElementById('setupNeeded');
@@ -355,69 +479,100 @@ async function startApp(){
         document.getElementById('userEmail').textContent=u.email||u.uid.slice(0,8);
         statusEl.textContent='● Live Synced • '+(u.email||'');
         statusEl.className='sync-badge';
+        // Ensure date is fresh on login
+        const dueInput=document.getElementById('inpDue');
+        if(dueInput) dueInput.value=todayStr();
         listenTasks();
       }
     });
   }catch(err){
     document.getElementById('errorBox').style.display='block';
-    document.getElementById('errorBox').innerHTML='<b>Firebase init error:</b> '+err.message+'<br>Check firebaseConfig paste - maybe missing comma or quote.';
-    console.error(err);
+    document.getElementById('errorBox').innerHTML='<b>Firebase init error:</b> '+err.message;
   }
 }
+
 function listenTasks(){
   if(!user) return; if(unsub) unsub();
   const q=query(collection(db,'tasks'), where('owner','==',user.uid));
   unsub=onSnapshot(q, (snap)=>{
-    tasks=snap.docs.map(d=>({id:d.id,...d.data()}));
+    tasks=snap.docs.map(d=>({id:d.id,...d.data(), subtasks: d.data().subtasks||[] }));
     render();
   }, (err)=>{
     document.getElementById('errorBox').style.display='block';
-    document.getElementById('errorBox').innerHTML='<b>Firestore error:</b> '+err.message+'<br><br>If error is <code>Missing or insufficient permissions</code>: Go to Firebase Console → Firestore Database → Rules → change to test mode: <code>allow read, write: if true;</code> and Publish, then refresh.<br>If error is <code>auth/configuration-not-found</code>: Enable Email/Password in Authentication → Sign-in method.';
-    console.error(err);
+    document.getElementById('errorBox').innerHTML='<b>Firestore error:</b> '+err.message;
   });
 }
+
 window.toggleTask = async (id, completed)=>{
   try{ await updateDoc(doc(db,'tasks',id), {completed, completedAt: completed?new Date(): null}); }catch(e){alert(e.message)}
 }
 window.deleteTask = async (id)=>{
-  if(!confirm('Delete from cloud? All devices')) return;
+  if(!confirm('Delete this task from cloud? All devices')) return;
   try{ await deleteDoc(doc(db,'tasks',id)); }catch(e){alert(e.message)}
 }
-document.getElementById('btnAdd').addEventListener('click', async ()=>{
-  const title=document.getElementById('inpTitle').value.trim(); if(!title){alert('Enter title'); return}
-  const due=document.getElementById('inpDue').value || todayStr();
-  const cat=document.getElementById('inpCat').value; const pri=document.getElementById('inpPri').value; const notes=document.getElementById('inpNotes').value.trim();
-  try{ await addDoc(collection(db,'tasks'), {title, dueDate:due, category:cat, priority:pri, notes, owner:user.uid, completed:false, completedAt:null, createdAt: serverTimestamp()}); document.getElementById('inpTitle').value=''; document.getElementById('inpNotes').value=''; }catch(e){alert('Add failed: '+e.message)}
-});
-function cleanEmail(raw){ return (raw||'').trim().toLowerCase().replace(/\s+/g,'').replace(/%40/g,'@'); }
-function friendlyAuthError(err){
-  const code=err.code||'';
-  if(code.includes('invalid-email')) return '❌ Invalid email format — remove spaces. Use like: median0copses@icloud.com (no spaces, must have @). You typed: "'+document.getElementById('email').value+'"';
-  if(code.includes('operation-not-allowed')) return '❌ Email/Password login not enabled yet. Go to Firebase Console → Authentication → Sign-in method → Enable Email/Password → Save.';
-  if(code.includes('weak-password')) return '❌ Password too weak — must be at least 6 characters.';
-  if(code.includes('email-already-in-use')) return '⚠️ This email already has an account — click Login instead of Create Account.';
-  if(code.includes('user-not-found')||code.includes('wrong-password')||code.includes('invalid-credential')) return '❌ Wrong email or password — if first time, click Create Account first.';
-  return err.message;
+
+// ===== NEW SUBTASK FUNCTIONS =====
+window.addSubtask = async (taskId)=>{
+  const input=document.getElementById(`input-sub-${taskId}`);
+  if(!input) return;
+  const title=input.value.trim();
+  if(!title){ alert('Enter subtask title'); return; }
+  const task=tasks.find(t=>t.id===taskId);
+  if(!task) return;
+  const newSub={id: Math.random().toString(36).slice(2,9), title, completed:false};
+  const updated=[...(task.subtasks||[]), newSub];
+  try{
+    await updateDoc(doc(db,'tasks',taskId), {subtasks: updated});
+    input.value='';
+  }catch(e){ alert(e.message) }
 }
+window.toggleSubtask = async (taskId, subId)=>{
+  const task=tasks.find(t=>t.id===taskId);
+  if(!task) return;
+  const updated=(task.subtasks||[]).map(s=> s.id===subId ? {...s, completed:!s.completed} : s);
+  try{ await updateDoc(doc(db,'tasks',taskId), {subtasks: updated}); }catch(e){ alert(e.message) }
+}
+window.deleteSubtask = async (taskId, subId)=>{
+  const task=tasks.find(t=>t.id===taskId);
+  if(!task) return;
+  const updated=(task.subtasks||[]).filter(s=>s.id!==subId);
+  try{ await updateDoc(doc(db,'tasks',taskId), {subtasks: updated}); }catch(e){ alert(e.message) }
+}
+
+document.getElementById('btnAdd').addEventListener('click', async ()=>{
+  const title=document.getElementById('inpTitle').value.trim();
+  if(!title){ alert('Enter title'); return; }
+  // FIX #1 & #2: Always use local today string
+  const due=document.getElementById('inpDue').value || todayStr();
+  const cat=document.getElementById('inpCat').value;
+  const pri=document.getElementById('inpPri').value;
+  const notes=document.getElementById('inpNotes').value.trim();
+  try{
+    await addDoc(collection(db,'tasks'), {title, dueDate:due, category:cat, priority:pri, notes, owner:user.uid, subtasks:[], completed:false, completedAt:null, createdAt: serverTimestamp()});
+    document.getElementById('inpTitle').value='';
+    document.getElementById('inpNotes').value='';
+    // FIX #2: Reset to current date every time, not old date
+    document.getElementById('inpDue').value=todayStr();
+    document.getElementById('inpTitle').focus();
+  }catch(e){ alert('Add failed: '+e.message) }
+});
 
 document.getElementById('btnLogin').addEventListener('click', async ()=>{
   const email=cleanEmail(document.getElementById('email').value); const pwd=document.getElementById('password').value;
   document.getElementById('email').value=email;
-  if(!email.includes('@')||!email.includes('.')){ document.getElementById('authMsg').textContent='❌ Enter valid email like name@icloud.com'; return; }
+  if(!email.includes('@')){ document.getElementById('authMsg').textContent='❌ Enter valid email'; return; }
   document.getElementById('authMsg').textContent='Logging in...';
   try{ await signInWithEmailAndPassword(auth,email,pwd); document.getElementById('authMsg').textContent=''; }catch(e){ document.getElementById('authMsg').textContent=friendlyAuthError(e); }
 });
 document.getElementById('btnSignup').addEventListener('click', async ()=>{
   const email=cleanEmail(document.getElementById('email').value); const pwd=document.getElementById('password').value;
   document.getElementById('email').value=email;
-  if(!email.includes('@')||!email.includes('.')){ document.getElementById('authMsg').textContent='❌ Enter valid email like name@icloud.com'; return; }
-  if(pwd.length<6){ document.getElementById('authMsg').textContent='❌ Password must be at least 6 characters'; return; }
-  document.getElementById('authMsg').textContent='Creating account...';
-  try{ await createUserWithEmailAndPassword(auth,email,pwd); document.getElementById('authMsg').textContent='✅ Account created! Logged in.'; }catch(e){ document.getElementById('authMsg').textContent=friendlyAuthError(e); }
+  if(!email.includes('@')){ document.getElementById('authMsg').textContent='❌ Enter valid email'; return; }
+  if(pwd.length<6){ document.getElementById('authMsg').textContent='❌ Password min 6 chars'; return; }
+  try{ await createUserWithEmailAndPassword(auth,email,pwd); }catch(e){ document.getElementById('authMsg').textContent=friendlyAuthError(e); }
 });
 document.getElementById('btnGoogle').addEventListener('click', async ()=>{
-  document.getElementById('authMsg').textContent='Opening Google popup...';
-  try{ const provider=new GoogleAuthProvider(); await signInWithPopup(auth,provider); document.getElementById('authMsg').textContent=''; }catch(e){ document.getElementById('authMsg').textContent=friendlyAuthError(e); }
+  try{ const provider=new GoogleAuthProvider(); await signInWithPopup(auth,provider); }catch(e){ document.getElementById('authMsg').textContent=friendlyAuthError(e); }
 });
 document.getElementById('btnLogout').addEventListener('click', ()=>signOut(auth));
 document.querySelectorAll('.filter-pill').forEach(b=> b.addEventListener('click', ()=>{ document.querySelectorAll('.filter-pill').forEach(x=>x.classList.remove('active')); b.classList.add('active'); activeFilter=b.dataset.filter; render(); }));
@@ -431,6 +586,6 @@ document.getElementById('btnExport').addEventListener('click', ()=>{
 
 startApp();
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1f7591f2a714bc5',t:'MTc4NDc3NDcxNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f"}' crossorigin="anonymous"></script>
-</body>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"1954b47c125f43f8b4338b3c4f804e4f"}' crossorigin="anonymous"></script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1f78031ec4424d2',t:'MTc4NDc3NjMxNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
